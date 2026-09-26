@@ -1,0 +1,68 @@
+name: Deploy community demo
+on:
+  workflow_run:
+    workflows: [Contribution checks]
+    types: [completed]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: community-demo-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Verify current main and trusted build
+        id: verify
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            if (run.repository.full_name !== `${context.repo.owner}/${context.repo.repo}`) throw Error('Wrong repository');
+            const {data: branch} = await github.rest.repos.getBranch({...context.repo, branch:'main'});
+            core.setOutput('current', branch.commit.sha === run.head_sha ? 'true' : 'false');
+      - uses: actions/download-artifact@v4
+        if: steps.verify.outputs.current == 'true'
+        with:
+          name: frontend-${{ github.event.workflow_run.head_sha }}
+          path: ${{ runner.temp }}/release/frontend
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/download-artifact@v4
+        if: steps.verify.outputs.current == 'true'
+        with:
+          name: backend-${{ github.event.workflow_run.head_sha }}
+          path: ${{ runner.temp }}/release
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Send build to restricted test deploy endpoint
+        if: steps.verify.outputs.current == 'true'
+        env:
+          DEPLOY_KEY: ${{ secrets.COMMUNITY_DEMO_DEPLOY_KEY }}
+          KNOWN_HOSTS: ${{ secrets.COMMUNITY_DEMO_KNOWN_HOSTS }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_KEY" > "$HOME/.ssh/community-demo"
+          printf '%s\n' "$KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/community-demo" "$HOME/.ssh/known_hosts"
+          trap 'rm -f "$HOME/.ssh/community-demo"' EXIT
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])/'release'
+          (root/'release.json').write_text(json.dumps({'sha':os.environ['HEAD_SHA'],'run_id':int(os.environ['RUN_ID'])}))
+          PY
+          tar -czf "$RUNNER_TEMP/release.tgz" -C "$RUNNER_TEMP/release" .
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ServerAliveInterval=20 -i "$HOME/.ssh/community-demo" city-deploy@45.205.25.113 < "$RUNNER_TEMP/release.tgz"
+      - name: Verify public test entry
+        if: steps.verify.outputs.current == 'true'
+        run: curl --retry 4 --retry-all-errors --fail --max-time 20 https://win-revenue-scheduled-aircraft.trycloudflare.com/health
