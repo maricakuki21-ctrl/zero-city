@@ -470,7 +470,7 @@
                 {{ isRoomActionBusy(room, 'join') ? '加入中...' : '加入房间' }}
               </button>
               <button v-if="canEnterRuntime(room)" type="button" class="tavern-primary-button compact" :disabled="isRoomActionBusy(room, 'runtime')" @click="handleEnterRuntime(room)">
-                {{ isRoomActionBusy(room, 'runtime') ? '准备中...' : '进入舞台' }}
+                {{ isRoomActionBusy(room, 'runtime') ? '准备中...' : room.status === 'completed' ? '回看本局' : '进入舞台' }}
               </button>
               <button v-if="canStartRoom(room)" type="button" class="tavern-primary-button compact" :disabled="isRoomActionBusy(room, 'start')" @click="handleRoomAction(room, 'start')">
                 {{ isRoomActionBusy(room, 'start') ? '启动中...' : '开始' }}
@@ -887,7 +887,7 @@ function canJoinRoom(room: TavernRoom): boolean {
 }
 
 function canEnterRuntime(room: TavernRoom): boolean {
-  return !['completed', 'cancelled'].includes(String(room.status))
+  return room.status !== 'cancelled'
 }
 
 function canStartRoom(room: TavernRoom): boolean {

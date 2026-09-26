@@ -392,10 +392,36 @@ func TestGetTavernRoomRuntimeRejectsNonParticipant(t *testing.T) {
 	}
 }
 
-func TestGetTavernRoomRuntimeRejectsEndedRoom(t *testing.T) {
+func TestGetTavernRoomRuntimeAllowsCompletedReplay(t *testing.T) {
+	for _, joined := range []bool{false, true} {
+		repo := &tavernRepoStub{
+			script: &TavernScript{ID: 3, Title: "Runtime Script"},
+			room:   &TavernRoom{ID: 21, ScriptID: 3, OwnerID: 7, Status: TavernRoomStatusCompleted},
+			joined: joined,
+		}
+		svc := NewBizDecipherService(repo, nil, nil)
+		userID := int64(7)
+		if joined {
+			userID = 8
+		}
+		config, err := svc.GetTavernRoomRuntime(context.Background(), userID, 21)
+		if err != nil || config.Room.Status != TavernRoomStatusCompleted {
+			t.Fatalf("replay: config=%+v err=%v", config, err)
+		}
+		if _, err := svc.CreateTavernRuntimeSession(context.Background(), userID, 21); err != nil {
+			t.Fatalf("replay session: %v", err)
+		}
+		repo.joined = false
+		if _, err := svc.GetTavernRoomRuntime(context.Background(), 9, 21); !errors.Is(err, ErrTavernRoomForbidden) {
+			t.Fatalf("outsider replay: %v", err)
+		}
+	}
+}
+
+func TestGetTavernRoomRuntimeRejectsCancelledRoom(t *testing.T) {
 	repo := &tavernRepoStub{
 		script: &TavernScript{ID: 3, Title: "Runtime Script"},
-		room:   &TavernRoom{ID: 21, ScriptID: 3, OwnerID: 7, Title: "Runtime Room", Status: TavernRoomStatusCompleted},
+		room:   &TavernRoom{ID: 21, ScriptID: 3, OwnerID: 7, Title: "Runtime Room", Status: TavernRoomStatusCancelled},
 	}
 	svc := NewBizDecipherService(repo, nil, nil)
 	_, err := svc.GetTavernRoomRuntime(context.Background(), 7, 21)
