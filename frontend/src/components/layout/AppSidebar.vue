@@ -481,7 +481,7 @@ import { FeatureFlags, makeSidebarFlag } from '@/utils/featureFlags'
 import { canAccessProductModule, createProductModuleState, isProductModuleVisibleInSidebar, productModuleRegistry } from '@/product/moduleRegistry'
 import { useBatchImageAccess } from '@/composables/useBatchImageAccess'
 import { isLocalPreviewAuth } from '@/utils/localPreview'
-import { dedupeSidebarItems, type SidebarPathItem } from './sidebarNavigation'
+import { dedupeSidebarItems, isSidebarGroupActive, type SidebarPathItem } from './sidebarNavigation'
 import { useMarketplaceGuide } from '@/features/bizdecipher/composables/useMarketplaceGuide'
 import { useAffiliateDiscovery } from '@/features/bizdecipher/composables/useAffiliateDiscovery'
 import { Activity, BookOpen, ChartColumn, FolderOpen, Gift, Handshake, KeyRound, MessagesSquare, MoreHorizontal, Network, Sparkles, UserRound, UsersRound, Wallet } from '@lucide/vue'
@@ -1031,7 +1031,6 @@ function buildSelfNavItems(): NavItem[] {
       section: 'community',
       expandOnly: true,
       children: [
-        { path: '/community', label: '全城动态', icon: CommunityIcon },
         { path: '/community?district=tavern&channel=chat-hall', label: '闲聊广场', icon: CommunityIcon },
         {
           path: '/tavern-group',
@@ -1376,8 +1375,7 @@ function isChildActive(child: NavItem): boolean {
 }
 
 function isGroupActive(item: NavItem): boolean {
-  if (!item.children) return false
-  return item.children.some((child) => child.children?.length ? isGroupActive(child) : isChildActive(child)) || isTargetActive(item.path, true)
+  return isSidebarGroupActive(item, path => isTargetActive(path, true))
 }
 
 function isGroupExpanded(item: NavItem): boolean {

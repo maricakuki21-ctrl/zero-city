@@ -3,9 +3,29 @@ import { describe, expect, it } from 'vitest'
 import {
   collectClickableSidebarPaths,
   dedupeSidebarItems,
+  isSidebarGroupActive,
   normalizeSidebarPath,
   type SidebarPathItem,
 } from '../sidebarNavigation'
+
+describe('expand-only category selection', () => {
+  const city = { path: '/community', expandOnly: true, children: [
+    { path: '/community?district=governance', expandOnly: true, children: [{ path: '/community?district=governance&channel=votes' }] },
+    { path: '/zero-city/cards' },
+  ] }
+  it('does not open Zero City for its detached city feed or personal page', () => {
+    for (const path of ['/community', '/community?workspace=mine']) {
+      expect(isSidebarGroupActive(city, target => target === path)).toBe(false)
+    }
+  })
+  it('opens categories for actual nested destinations', () => {
+    expect(isSidebarGroupActive(city, target => target === '/community?district=governance&channel=votes')).toBe(true)
+    expect(isSidebarGroupActive(city, target => target === '/zero-city/cards')).toBe(true)
+  })
+  it('preserves clickable parent page selection', () => {
+    expect(isSidebarGroupActive({ path: '/admin/orders', children: [{ path: '/admin/orders/refunds' }] }, target => target === '/admin/orders')).toBe(true)
+  })
+})
 
 interface TestItem extends SidebarPathItem {
   label: string

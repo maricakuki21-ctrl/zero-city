@@ -12,6 +12,11 @@ const participation = ref<CommunityParticipation | null>(null)
 const policy = ref<CommunityAnnouncementPolicy | null>(null)
 const proposalKind = ref<NonNullable<CommunityPoll['proposal_kind']>>('general')
 const discussionId = ref(0)
+const kindFilter = ref('all')
+const stateFilter = ref('all')
+const visiblePolls = computed(() => polls.value.filter(poll =>
+  (kindFilter.value === 'all' || (poll.proposal_kind || 'general') === kindFilter.value) &&
+  (stateFilter.value === 'all' || poll.status === stateFilter.value)))
 const kinds = { general: '普通议题', announcement: '玩家公告', activity: '城市活动', improvement: '网站建议', rule: '规则提案' }
 const canParticipate = computed(() => isAuthenticated.value && Boolean(participation.value?.is_admin || (participation.value?.level ?? 0) >= 1))
 const polls = ref<CommunityPoll[]>([])
@@ -187,6 +192,8 @@ watch(() => [auth.user?.id, auth.isAuthenticated] as const, () => {
   invalidateList()
   polls.value = []
   participation.value = null
+  kindFilter.value = 'all'
+  stateFilter.value = 'all'
   discussionId.value = 0
   for (const id of Object.keys(selections)) delete selections[Number(id)]
   saving.value = false
@@ -196,7 +203,7 @@ watch(() => [auth.user?.id, auth.isAuthenticated] as const, () => {
   resetCreate()
   void loadPolls()
 }, { immediate: true, flush: 'sync' })
-watch(() => props.focusPollId, () => void loadPolls())
+watch(() => props.focusPollId, () => { kindFilter.value = 'all'; stateFilter.value = 'all'; void loadPolls() })
 onScopeDispose(() => { identityEpoch++; invalidateList() })
 </script>
 
@@ -216,6 +223,18 @@ onScopeDispose(() => { identityEpoch++; invalidateList() })
     <p v-if="participation && !canParticipate" class="city-poll-access">L0 访客 · 可以阅读和参与讨论。正式提案与投票需要 L1 居民资格；可将作品或贡献发到闲聊广场，供管理员确认。</p>
     <p v-else-if="canParticipate" class="city-poll-access">{{ participation?.is_admin ? '管理员' : 'L1 居民' }} · 一人一票。公告由居民表决，规则及网站改动另行采纳。</p>
 
+    <details v-if="policy" class="city-poll-rules">
+      <summary>玩家公告如何发布</summary>
+      <p>L1 居民提交后，正文和选项锁定。投票 {{ policy.voting_hours }} 小时，至少 {{ policy.minimum_votes }} 人参与且支持率达到 {{ policy.support_percent }}%，自动在全城动态展示 {{ policy.display_days }} 天。作者可撤回，管理员可下架，记录保留。</p>
+      <p>玩家公告不等于官方公告。L0 可以参与讨论；充值和消费不会增加票权。</p>
+    </details>
+
+    <div v-if="polls.length" class="city-poll-filters" aria-label="筛选议题">
+      <label>类型<select v-model="kindFilter" aria-label="议题类型筛选"><option value="all">全部类型</option><option v-for="(label, value) in kinds" :key="value" :value="value">{{ label }}</option></select></label>
+      <label>状态<select v-model="stateFilter" aria-label="议题状态筛选"><option value="all">全部状态</option><option value="open">进行中</option><option value="closed">已结束</option></select></label>
+      <span>{{ visiblePolls.length }} / {{ polls.length }} 条已加载议题</span>
+    </div>
+
     <form v-if="createOpen" class="city-poll-create" data-testid="poll-create-form" @submit.prevent="createPoll">
       <div class="city-poll-create-head"><div><strong>新建议题</strong><p>保持问题明确，让每个选项都能独立选择。</p></div><button type="button" aria-label="关闭创建表单" @click="resetCreate"><X :size="18" /></button></div>
       <label>议题类型<select v-model="proposalKind" data-testid="poll-kind"><option v-for="(label, value) in kinds" :key="value" :value="value">{{ label }}</option></select></label>
@@ -231,7 +250,8 @@ onScopeDispose(() => { identityEpoch++; invalidateList() })
     <div v-else-if="error && !polls.length" class="city-activity-state city-activity-state--error" role="alert"><h2>投票暂时没有加载成功</h2><p>{{ error }}</p><button class="city-activity-secondary" type="button" @click="loadPolls">重新读取</button></div>
     <div v-else-if="polls.length" class="city-poll-list">
       <p v-if="error" class="city-poll-error" role="alert">{{ error }}</p>
-      <article v-for="poll in polls" :id="`city-poll-${poll.id}`" :key="poll.id" class="city-poll-item" :class="{ 'is-closed': poll.status === 'closed' }">
+      <div v-if="!visiblePolls.length" class="city-poll-filter-empty">暂无符合条件的议题。<button type="button" @click="kindFilter = 'all'; stateFilter = 'all'">清除筛选</button></div>
+      <article v-for="poll in visiblePolls" :id="`city-poll-${poll.id}`" :key="poll.id" class="city-poll-item" :class="{ 'is-closed': poll.status === 'closed' }">
         <header><div><span>{{ kinds[poll.proposal_kind || 'general'] }} · {{ resultLabel(poll) }}</span><h2>{{ poll.title }}</h2><p>{{ poll.body }}</p></div><small>{{ poll.author }} · {{ deadline(poll) }}</small></header>
         <p v-if="poll.proposal_kind === 'announcement'" class="city-poll-policy">至少 {{ poll.minimum_votes }} 人参与，支持率 ≥ {{ poll.support_percent }}%；通过后展示 {{ poll.display_days }} 天<span v-if="poll.expires_at">，至 {{ new Date(poll.expires_at).toLocaleString() }}</span>。</p>
         <form :data-testid="`poll-vote-${poll.id}`" @submit.prevent="votePoll(poll)">

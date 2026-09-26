@@ -40,6 +40,15 @@
 .city-poll-create label, .city-poll-create fieldset { display: grid; gap: var(--bd-space-2); margin: 0; padding: 0; border: 0; color: var(--bd-text-secondary); font-size: 13px; font-weight: 600; }
 .city-poll-create input, .city-poll-create textarea, .city-poll-create select { width: 100%; min-height: 42px; padding: var(--bd-space-2) var(--bd-space-3); border: 1px solid var(--zc-line); border-radius: var(--bd-radius-md); color: var(--bd-text-primary); background: var(--bd-surface); font: inherit; font-weight: 400; }
 .city-poll-policy, .city-poll-access { color: var(--bd-text-muted); font-size: 13px; line-height: 1.7; margin-block: 12px; }
+.city-poll-rules { padding-block: 12px; border-bottom: 1px solid var(--zc-line); color: var(--bd-text-secondary); font-size: 13px; line-height: 1.8; }
+.city-poll-rules summary { cursor: pointer; font-weight: 650; color: var(--bd-accent-teal); }
+.city-poll-rules p { max-width: 780px; margin-top: 8px; }
+.city-poll-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-block: 16px; border-bottom: 1px solid var(--zc-line); }
+.city-poll-filters label { display: flex; align-items: center; gap: 8px; color: var(--bd-text-secondary); font-size: 13px; }
+.city-poll-filters select { min-height: 36px; padding: 6px 28px 6px 10px; border: 1px solid var(--zc-line); border-radius: 6px; color: var(--bd-text-primary); background: var(--bd-surface); }
+.city-poll-filters > span { margin-left: auto; font-size: 12px; color: var(--bd-text-muted); }
+.city-poll-filter-empty { padding-block: 40px; text-align: center; color: var(--bd-text-muted); font-size: 14px; }
+.city-poll-filter-empty button { color: var(--bd-accent-teal); margin-left: 8px; text-decoration: underline; }
 .city-poll-item { scroll-margin-top: 80px; }
 .city-poll-option:focus-within { outline: 2px solid var(--bd-accent-teal); outline-offset: 2px; }
 .city-poll-create textarea { min-height: 100px; resize: vertical; line-height: 1.7; }
