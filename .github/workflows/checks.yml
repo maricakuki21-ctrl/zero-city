@@ -60,6 +60,8 @@ jobs:
         working-directory: backend
       - run: go test -tags unit -p 2 ./internal/repository -run TestDeleteSharedPoolTx -count=1
         working-directory: backend
+      - run: go test -tags embed -p 2 ./internal/web -count=1
+        working-directory: backend
       - run: go build -buildvcs=false -p 2 -tags embed -o /tmp/zero-city ./cmd/server
         working-directory: backend
         env:

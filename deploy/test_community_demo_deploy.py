@@ -27,6 +27,16 @@ def payload(files=None, link=None):
 
 
 class DeployTests(unittest.TestCase):
+    def test_api_health_alone_cannot_pass_deployment(self):
+        def response(url, timeout):
+            if url.endswith('/health'):
+                return io.BytesIO(b'{"status":"ok"}')
+            if url.endswith('/settings/public'):
+                return io.BytesIO(b'{"code":0}')
+            return io.BytesIO(b'404 page not found')
+        with patch.object(deploy, 'urlopen', side_effect=response), patch.object(deploy.time, 'sleep'):
+            self.assertFalse(deploy.healthy('a' * 40))
+
     def test_unpack_complete_release(self):
         with tempfile.TemporaryDirectory() as name:
             root = Path(name)

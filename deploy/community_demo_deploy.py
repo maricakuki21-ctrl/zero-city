@@ -81,14 +81,27 @@ def switch(target):
     temporary.replace(ROOT / 'current')
 
 
-def healthy():
+def healthy(expected_sha=None):
     for _ in range(45):
         try:
             with urlopen('http://127.0.0.1:28090/health', timeout=3) as response:
                 if json.load(response).get('status') == 'ok':
                     with urlopen('http://127.0.0.1:28090/api/v1/settings/public', timeout=5) as settings:
-                        if json.load(settings).get('code') == 0:
-                            return True
+                        if json.load(settings).get('code') != 0:
+                            continue
+                    with urlopen('http://127.0.0.1:28090/login', timeout=5) as page:
+                        html = page.read().decode()
+                    scripts = re.findall(r'<script[^>]+src="(/assets/[^"?]+\.js)"', html)
+                    if not scripts or 'id="app"' not in html:
+                        continue
+                    with urlopen('http://127.0.0.1:28090' + scripts[0], timeout=5) as script:
+                        if 'javascript' not in script.headers.get('Content-Type', ''):
+                            continue
+                    if expected_sha:
+                        with urlopen('http://127.0.0.1:28090/community-build.json', timeout=5) as build:
+                            if json.load(build).get('sha') != expected_sha:
+                                continue
+                    return True
         except Exception:
             pass
         time.sleep(2)
@@ -124,7 +137,7 @@ def main():
             previous = (ROOT / 'current').resolve(strict=True)
             destination = releases / sha
             if destination.exists():
-                if previous == destination and healthy():
+                if previous == destination and healthy(sha):
                     print('Already deployed ' + sha)
                     return
                 raise RuntimeError('Release already exists but is not active; inspect before retry')
@@ -138,7 +151,7 @@ def main():
             try:
                 switch(destination)
                 subprocess.run(['systemctl', 'restart', SERVICE], check=True)
-                if not healthy():
+                if not healthy(sha):
                     raise RuntimeError('New service health check failed')
             except Exception:
                 subprocess.run(['systemctl', 'stop', SERVICE], check=True)
