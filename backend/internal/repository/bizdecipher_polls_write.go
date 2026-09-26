@@ -63,7 +63,7 @@ func (r *bizDecipherRepository) VoteCommunityPollTx(ctx context.Context, pollID,
 
 	var ownerID int64
 	var closed bool
-	err = tx.QueryRowContext(ctx, `SELECT post.user_id, (p.closed_at IS NOT NULL OR (p.closes_at IS NOT NULL AND p.closes_at <= NOW())) FROM community_polls p JOIN community_posts post ON post.id = p.post_id WHERE p.id = $1 AND post.deleted_at IS NULL AND NOT post.private AND post.status NOT IN ('hidden', 'deleted') FOR UPDATE`, pollID).Scan(&ownerID, &closed)
+	err = tx.QueryRowContext(ctx, `SELECT post.user_id, (p.closed_at IS NOT NULL OR (p.closes_at IS NOT NULL AND p.closes_at <= NOW())) FROM community_polls p JOIN community_posts post ON post.id = p.post_id WHERE p.id = $1 AND post.deleted_at IS NULL AND NOT post.private AND post.status NOT IN ('hidden', 'deleted', 'rejected') FOR UPDATE`, pollID).Scan(&ownerID, &closed)
 	if err == sql.ErrNoRows {
 		return nil, service.ErrCommunityPollNotFound
 	}
