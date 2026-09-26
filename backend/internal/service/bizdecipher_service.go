@@ -1893,6 +1893,10 @@ func (s *BizDecipherService) CreateCommunityComment(ctx context.Context, postID,
 	if err != nil {
 		return nil, err
 	}
+	// Newcomers can discuss proposals, but formal votes still require L1.
+	if district == "governance" && channel == "votes" {
+		district, channel = "tavern", "chat-hall"
+	}
 	// Residents can discuss rules; publishing official rules remains staff-only.
 	if channel == "rules" {
 		channel = "votes"

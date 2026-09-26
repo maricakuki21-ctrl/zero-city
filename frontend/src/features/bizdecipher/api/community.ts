@@ -174,6 +174,13 @@ export interface CommunityPollOption {
 }
 
 export interface CommunityPoll {
+  proposal_kind?: 'general' | 'announcement' | 'activity' | 'improvement' | 'rule'
+  minimum_votes?: number
+  support_percent?: number
+  display_days?: number
+  decision?: 'voting' | 'published' | 'rejected' | 'expired' | 'withdrawn'
+  published_at?: string
+  expires_at?: string
   id: number
   post_id: number
   owner_user_id: number
@@ -191,17 +198,33 @@ export interface CommunityPoll {
 }
 
 export interface CreateCommunityPollPayload {
+  proposal_kind?: CommunityPoll['proposal_kind']
   title: string
   body: string
   options: string[]
   closes_at?: string
 }
 
+export interface CommunityAnnouncementPolicy {
+  minimum_votes: number
+  support_percent: number
+  voting_hours: number
+  display_days: number
+}
+
 export const communityAPI = {
-  listPolls(limit = 30): Promise<{ items: CommunityPoll[] }> {
+  listPolls(limit = 30): Promise<{ items: CommunityPoll[]; announcement_policy?: CommunityAnnouncementPolicy }> {
     return apiClient
-      .get<{ items: CommunityPoll[] }>('/biz/community/polls', { params: { limit } })
+      .get<{ items: CommunityPoll[]; announcement_policy?: CommunityAnnouncementPolicy }>('/biz/community/polls', { params: { limit } })
       .then((response) => response.data)
+  },
+
+  listPlayerAnnouncements(): Promise<{ items: CommunityPoll[] }> {
+    return apiClient.get<{ items: CommunityPoll[] }>('/biz/community/player-announcements').then((response) => response.data)
+  },
+
+  getPoll(pollId: number): Promise<CommunityPoll> {
+    return apiClient.get<CommunityPoll>(`/biz/community/polls/${pollId}`).then((response) => response.data)
   },
 
   createPoll(payload: CreateCommunityPollPayload): Promise<CommunityPoll> {

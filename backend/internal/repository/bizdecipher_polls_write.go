@@ -25,7 +25,22 @@ func (r *bizDecipherRepository) CreateCommunityPollTx(ctx context.Context, userI
 	}
 
 	var pollID int64
-	if err := tx.QueryRowContext(ctx, `INSERT INTO community_polls (post_id, closes_at) VALUES ($1, $2) RETURNING id`, postID, input.ClosesAt).Scan(&pollID); err != nil {
+	if input.ProposalKind == "" {
+		input.ProposalKind = "general"
+	}
+	if input.MinimumVotes <= 0 {
+		input.MinimumVotes = 3
+	}
+	if input.SupportPercent < 51 {
+		input.SupportPercent = 60
+	}
+	if input.DisplayDays <= 0 {
+		input.DisplayDays = 7
+	}
+	if err := tx.QueryRowContext(ctx, `INSERT INTO community_polls
+		(post_id, closes_at, proposal_kind, minimum_votes, support_percent, display_days)
+		VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`, postID, input.ClosesAt,
+		input.ProposalKind, input.MinimumVotes, input.SupportPercent, input.DisplayDays).Scan(&pollID); err != nil {
 		return nil, fmt.Errorf("create community poll: %w", err)
 	}
 	for index, label := range input.Options {
@@ -48,7 +63,7 @@ func (r *bizDecipherRepository) VoteCommunityPollTx(ctx context.Context, pollID,
 
 	var ownerID int64
 	var closed bool
-	err = tx.QueryRowContext(ctx, `SELECT post.user_id, (p.closed_at IS NOT NULL OR (p.closes_at IS NOT NULL AND p.closes_at <= NOW())) FROM community_polls p JOIN community_posts post ON post.id = p.post_id WHERE p.id = $1 FOR UPDATE`, pollID).Scan(&ownerID, &closed)
+	err = tx.QueryRowContext(ctx, `SELECT post.user_id, (p.closed_at IS NOT NULL OR (p.closes_at IS NOT NULL AND p.closes_at <= NOW())) FROM community_polls p JOIN community_posts post ON post.id = p.post_id WHERE p.id = $1 AND post.deleted_at IS NULL AND NOT post.private AND post.status NOT IN ('hidden', 'deleted') FOR UPDATE`, pollID).Scan(&ownerID, &closed)
 	if err == sql.ErrNoRows {
 		return nil, service.ErrCommunityPollNotFound
 	}
@@ -104,8 +119,8 @@ func (r *bizDecipherRepository) CloseCommunityPollTx(ctx context.Context, pollID
 	if ownerID != actorID && !allowAdmin {
 		return nil, service.ErrCommunityPollForbidden
 	}
-	if !closed {
-		if _, err := tx.ExecContext(ctx, `UPDATE community_polls SET closed_at = NOW(), closed_by_user_id = $2, updated_at = NOW() WHERE id = $1`, pollID, actorID); err != nil {
+	{
+		if _, err := tx.ExecContext(ctx, `UPDATE community_polls SET closed_at = NOW(), closed_by_user_id = $2, updated_at = NOW() WHERE id = $1 AND closed_at IS NULL AND (proposal_kind = 'announcement' OR closes_at IS NULL OR closes_at > NOW())`, pollID, actorID); err != nil {
 			return nil, fmt.Errorf("close community poll: %w", err)
 		}
 	}

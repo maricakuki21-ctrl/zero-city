@@ -37,6 +37,8 @@ func RegisterBizDecipherRoutes(
 		biz.GET("/tavern/scripts/:id/packages", middleware.OptionalJWTAuth(jwtAuth), h.BizDecipher.ListTavernGamePackages)
 		biz.GET("/community/posts", h.BizDecipher.ListCommunityPosts)
 		biz.GET("/community/polls", middleware.OptionalJWTAuth(jwtAuth), h.BizDecipher.ListCommunityPolls)
+		biz.GET("/community/player-announcements", h.BizDecipher.ListPlayerAnnouncements)
+		biz.GET("/community/polls/:id", middleware.OptionalJWTAuth(jwtAuth), h.BizDecipher.GetCommunityPoll)
 		biz.GET("/community/columns", middleware.OptionalJWTAuth(jwtAuth), h.BizDecipher.ListCreatorColumns)
 		biz.GET("/community/columns/:id", middleware.OptionalJWTAuth(jwtAuth), h.BizDecipher.GetCreatorColumn)
 		biz.GET("/community/columns/:id/articles", middleware.OptionalJWTAuth(jwtAuth), h.BizDecipher.ListCreatorColumnArticles)

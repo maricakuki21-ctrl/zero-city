@@ -34,6 +34,8 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096
       - run: pnpm exec vitest run src/components/layout/__tests__/AppSidebar.spec.ts src/components/layout/__tests__/sidebarNavigation.spec.ts src/features/bizdecipher/components/shared-pool/officialObservation.spec.ts --maxWorkers=1 --minWorkers=1
         working-directory: frontend
+      - run: pnpm exec vitest run src/features/bizdecipher/components/community/__tests__/ZeroCityPollHall.spec.ts src/features/bizdecipher/api/__tests__/communityPolls.spec.ts --maxWorkers=1 --minWorkers=1
+        working-directory: frontend
       - run: pnpm exec vite build --config vite.config.ts
         working-directory: frontend
         env:
@@ -59,6 +61,8 @@ jobs:
       - run: go test -p 2 ./internal/repository ./internal/service ./internal/handler/admin -run 'TestAdminGroupSource|TestGroupHandler' -count=1
         working-directory: backend
       - run: go test -tags unit -p 2 ./internal/repository -run TestDeleteSharedPoolTx -count=1
+        working-directory: backend
+      - run: go test -p 2 ./internal/service ./internal/repository ./internal/handler -run 'TestPlayerAnnouncement|TestCommunityParticipation|TestCreateCommunityPoll|TestVoteCommunityPoll|TestCloseCommunityPoll' -count=1
         working-directory: backend
       - run: go test -tags embed -p 2 ./internal/web -run TestFrontendAvailableFromExternalRelease -count=1
         working-directory: backend

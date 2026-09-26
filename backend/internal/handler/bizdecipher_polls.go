@@ -24,7 +24,34 @@ func (h *BizDecipherHandler) ListCommunityPolls(c *gin.Context) {
 		response.ErrorFrom(c, err)
 		return
 	}
-	response.Success(c, gin.H{"items": polls})
+	response.Success(c, gin.H{"items": polls, "announcement_policy": service.PlayerAnnouncementPolicy()})
+}
+
+func (h *BizDecipherHandler) ListPlayerAnnouncements(c *gin.Context) {
+	items, err := h.bizService.ListPlayerAnnouncements(c.Request.Context())
+	if err != nil {
+		response.ErrorFrom(c, err)
+		return
+	}
+	response.Success(c, gin.H{"items": items})
+}
+
+func (h *BizDecipherHandler) GetCommunityPoll(c *gin.Context) {
+	pollID, ok := pollIDFromRequest(c)
+	if !ok {
+		return
+	}
+	viewerID := int64(0)
+	if subject, exists := middleware2.GetAuthSubjectFromContext(c); exists {
+		viewerID = subject.UserID
+	}
+	role, _ := middleware2.GetUserRoleFromContext(c)
+	poll, err := h.bizService.GetCommunityPoll(c.Request.Context(), pollID, viewerID, role == service.RoleAdmin)
+	if err != nil {
+		response.ErrorFrom(c, err)
+		return
+	}
+	response.Success(c, poll)
 }
 
 func (h *BizDecipherHandler) CreateCommunityPoll(c *gin.Context) {

@@ -21,6 +21,7 @@
             <ZeroCityPollHall
               v-if="activeSurface?.kind === 'activity' && activeCommunityChannel === 'votes'"
               :key="`${activeCommunityDistrict}:${activeCommunityChannel}`"
+              :focus-poll-id="Number(route.query.poll) || undefined"
             />
             <ZeroCityActivityBoard
               v-else-if="activeSurface?.kind === 'activity' && activeCommunityChannel !== 'badges' && activeCommunityChannel !== 'rules'"
@@ -120,6 +121,8 @@
                 <button class="community-btn community-btn-primary" type="button" @click="jumpToComposer">说点什么</button>
               </div>
             </header>
+
+            <PlayerAnnouncements />
 
             <div class="zero-city-forum-search">
               <label class="sr-only" for="zero-city-forum-search-input">搜索零号城动态</label>
@@ -950,6 +953,7 @@ import ZeroCityColumns from '@/features/bizdecipher/components/community/ZeroCit
 import ZeroCityCityPulse from '@/features/bizdecipher/components/community/ZeroCityCityPulse.vue'
 import ZeroCityActivityBoard from '@/features/bizdecipher/components/community/ZeroCityActivityBoard.vue'
 import ZeroCityPollHall from '@/features/bizdecipher/components/community/ZeroCityPollHall.vue'
+import PlayerAnnouncements from '@/features/bizdecipher/components/community/PlayerAnnouncements.vue'
 import ZeroCityGovernancePanel from '@/features/bizdecipher/components/community/ZeroCityGovernancePanel.vue'
 import ZeroCityForumBoard from '@/features/bizdecipher/components/community/ZeroCityForumBoard.vue'
 import ZeroCityPersonalHub from '@/features/bizdecipher/components/community/ZeroCityPersonalHub.vue'

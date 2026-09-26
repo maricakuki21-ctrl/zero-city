@@ -7,12 +7,13 @@ import type { CommunityPoll } from '@/features/bizdecipher/api/community'
 const mocks = vi.hoisted(() => ({
   auth: { user: { id: 31 }, token: 'first-token', isAuthenticated: true, isAdmin: false },
   api: { listPolls: vi.fn(), createPoll: vi.fn(), votePoll: vi.fn(), closePoll: vi.fn() },
+  participation: vi.fn(),
 }))
 
 const auth = reactive(mocks.auth)
 enableAutoUnmount(afterEach)
 vi.mock('@/stores/auth', () => ({ useAuthStore: () => auth }))
-vi.mock('@/features/bizdecipher/api/community', () => ({ communityAPI: mocks.api }))
+vi.mock('@/features/bizdecipher/api/community', () => ({ communityAPI: mocks.api, getCommunityParticipation: mocks.participation }))
 
 const poll = (overrides: Partial<CommunityPoll> = {}): CommunityPoll => ({
   id: 9, post_id: 101, owner_user_id: 31, author: '发起人', title: '先做哪个功能？', body: '请选择一个方向。',
@@ -28,6 +29,7 @@ beforeEach(() => {
   auth.user = { id: 31 }; auth.token = 'first-token'; auth.isAuthenticated = true; auth.isAdmin = false
   for (const fn of Object.values(mocks.api)) fn.mockReset()
   mocks.api.listPolls.mockResolvedValue({ items: [poll()] })
+  mocks.participation.mockReset().mockResolvedValue({ user_id: 31, level: 1, is_admin: false, reason: '贡献确认' })
 })
 
 function deferred<T>() {
@@ -38,6 +40,30 @@ function deferred<T>() {
 }
 
 describe('ZeroCityPollHall', () => {
+  it('allows L0 to see discussion but not create or cast formal votes', async () => {
+    mocks.participation.mockResolvedValue({ user_id: 31, level: 0, is_admin: false, reason: '' })
+    const wrapper = mount(ZeroCityPollHall); await flushPromises()
+    expect(wrapper.find('[data-testid="poll-open-create"]').exists()).toBe(false)
+    expect(wrapper.get('input[value="77"]').attributes('disabled')).toBeDefined()
+    expect(wrapper.text()).toContain('参与讨论')
+    await wrapper.get('[data-testid="poll-vote-9"]').trigger('submit')
+    expect(mocks.api.votePoll).not.toHaveBeenCalled()
+  })
+
+  it('publishes an announcement proposal with fixed options and shows its policy', async () => {
+    mocks.api.listPolls.mockResolvedValue({ items: [], announcement_policy: { minimum_votes: 3, support_percent: 60, voting_hours: 24, display_days: 7 } })
+    mocks.api.createPoll.mockResolvedValue(poll({ proposal_kind: 'announcement', decision: 'voting' }))
+    const wrapper = mount(ZeroCityPollHall); await flushPromises()
+    await wrapper.get('[data-testid="poll-open-create"]').trigger('click')
+    await wrapper.get('[data-testid="poll-kind"]').setValue('announcement')
+    expect(wrapper.find('[data-testid="poll-option-input"]').exists()).toBe(false)
+    expect(wrapper.text()).toContain('支持率 ≥ 60%')
+    await wrapper.get('[data-testid="poll-title"]').setValue('玩家共建日')
+    await wrapper.get('[data-testid="poll-body"]').setValue('来分享你的作品')
+    await wrapper.get('[data-testid="poll-create-form"]').trigger('submit'); await flushPromises()
+    expect(mocks.api.createPoll).toHaveBeenCalledWith({ title: '玩家共建日', body: '来分享你的作品', proposal_kind: 'announcement', options: ['支持发布', '暂不发布'] })
+  })
+
   it('submits one selected option and preserves the server selection after refresh', async () => {
     mocks.api.votePoll.mockResolvedValue(poll({ viewer_option_id: 77, total_votes: 3, options: [
       { id: 77, label: '搜索', position: 1, vote_count: 2 }, { id: 78, label: '分享', position: 2, vote_count: 1 },
