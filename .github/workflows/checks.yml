@@ -34,7 +34,7 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096
       - run: pnpm exec vitest run src/components/layout/__tests__/AppSidebar.spec.ts src/components/layout/__tests__/sidebarNavigation.spec.ts src/features/bizdecipher/components/shared-pool/officialObservation.spec.ts --maxWorkers=1 --minWorkers=1
         working-directory: frontend
-      - run: pnpm exec vitest run src/features/bizdecipher/components/community/__tests__/ZeroCityPollHall.spec.ts src/features/bizdecipher/api/__tests__/communityPolls.spec.ts --maxWorkers=1 --minWorkers=1
+      - run: pnpm exec vitest run src/features/bizdecipher/components/community/__tests__/ZeroCityPollHall.spec.ts src/features/bizdecipher/api/__tests__/communityPolls.spec.ts src/features/bizdecipher/utils/__tests__/communityProvenance.spec.ts --maxWorkers=1 --minWorkers=1
         working-directory: frontend
       - run: pnpm exec vite build --config vite.config.ts
         working-directory: frontend
