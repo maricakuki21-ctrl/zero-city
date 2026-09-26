@@ -442,6 +442,9 @@ func serveIndexHTML(c *gin.Context, fsys fs.FS) {
 }
 
 func HasEmbeddedFrontend() bool {
+	if info, err := os.Stat(filepath.Join(resolveFrontendOverrideDir(), "index.html")); err == nil && !info.IsDir() {
+		return true
+	}
 	_, err := frontendFS.ReadFile("dist/index.html")
 	return err == nil
 }
