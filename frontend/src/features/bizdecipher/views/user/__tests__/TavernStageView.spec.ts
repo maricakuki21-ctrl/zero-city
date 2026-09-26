@@ -46,6 +46,8 @@ function mountStage() {
   return mount(TavernStageView, { global: { stubs: {
     AppLayout: { template: '<div><slot /></div>' },
     Icon: true,
+    TavernAIHost: true,
+    RouterLink: true,
   } } })
 }
 

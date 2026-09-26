@@ -19,6 +19,8 @@
         <span>放松，有底线。闲谈、剧本和房间各有归属；费用与房间状态始终清晰可见。</span>
       </section>
 
+      <TavernHowTo />
+
       <section class="tavern-tabs">
         <button :class="['tavern-tab', activeTab === 'hall' && 'active']" type="button" @click="switchTab('hall')">剧本大厅</button>
         <button :class="['tavern-tab', activeTab === 'mine' && 'active']" type="button" @click="switchTab('mine')">投稿与我的剧本</button>
@@ -493,6 +495,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import AppLayout from '@/components/layout/AppLayout.vue'
 import StarterStories from '@/features/bizdecipher/components/tavern/StarterStories.vue'
+import TavernHowTo from '@/features/bizdecipher/components/tavern/TavernHowTo.vue'
 import TavernTicketPanel from '@/features/bizdecipher/components/tavern/TavernTicketPanel.vue'
 import TavernScriptPricing from '@/features/bizdecipher/components/tavern/TavernScriptPricing.vue'
 import TavernCommercePolicy from '@/features/bizdecipher/components/tavern/TavernCommercePolicy.vue'
