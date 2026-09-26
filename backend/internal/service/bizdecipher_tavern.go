@@ -394,7 +394,8 @@ func (s *BizDecipherService) GetTavernRoomRuntime(ctx context.Context, userID, r
 	if room == nil {
 		return nil, sql.ErrNoRows
 	}
-	if room.Status == TavernRoomStatusCompleted || room.Status == TavernRoomStatusCancelled {
+	// Completed rooms retain member-only replay. Write APIs independently require running.
+	if room.Status == TavernRoomStatusCancelled {
 		return nil, ErrTavernRoomState
 	}
 	role := "player"

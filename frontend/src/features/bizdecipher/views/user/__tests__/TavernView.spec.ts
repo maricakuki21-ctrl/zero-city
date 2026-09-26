@@ -56,6 +56,14 @@ function mountTavern() {
 }
 
 describe('TavernView route views', () => {
+  it('keeps a completed room accessible for read-only replay', async () => {
+    apiMocks.listMyTavernRooms.mockResolvedValue([{id: 9, script_id: 3, owner_id: 7, title: '已完成的夜班', status: 'completed', current_players: 1, max_players: 4}])
+    const wrapper = mountTavern()
+    await flushPromises()
+    expect(wrapper.text()).toContain('回看本局')
+    expect(wrapper.findAll('button').some(button => button.text() === '开始')).toBe(false)
+    wrapper.unmount()
+  })
   beforeEach(() => {
     vi.clearAllMocks()
     routerMocks.route.query = { view: 'rooms' }
