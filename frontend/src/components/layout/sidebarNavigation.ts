@@ -4,6 +4,14 @@ export interface SidebarPathItem {
   children?: SidebarPathItem[]
 }
 
+/** Category state keys are not page destinations. */
+export function isSidebarGroupActive(item: SidebarPathItem, matches: (path: string) => boolean): boolean {
+  if (!item.children?.length) return false
+  return item.children.some(child => child.children?.length
+    ? isSidebarGroupActive(child, matches)
+    : matches(child.path)) || (item.expandOnly !== true && matches(item.path))
+}
+
 /**
  * Return one stable key for an in-app navigation target.
  *

@@ -40,6 +40,17 @@ function deferred<T>() {
 }
 
 describe('ZeroCityPollHall', () => {
+  it('filters proposal types and states and lets residents clear an empty filter', async () => {
+    mocks.api.listPolls.mockResolvedValue({ items: [poll(), poll({ id: 10, title: '玩家公告样本', proposal_kind: 'announcement', status: 'closed' })] })
+    const wrapper = mount(ZeroCityPollHall); await flushPromises()
+    await wrapper.get('[aria-label="议题类型筛选"]').setValue('announcement')
+    expect(wrapper.findAll('.city-poll-item')).toHaveLength(1)
+    expect(wrapper.text()).toContain('玩家公告样本')
+    await wrapper.get('[aria-label="议题状态筛选"]').setValue('open')
+    expect(wrapper.findAll('.city-poll-item')).toHaveLength(0)
+    await wrapper.get('.city-poll-filter-empty button').trigger('click')
+    expect(wrapper.findAll('.city-poll-item')).toHaveLength(2)
+  })
   it('allows L0 to see discussion but not create or cast formal votes', async () => {
     mocks.participation.mockResolvedValue({ user_id: 31, level: 0, is_admin: false, reason: '' })
     const wrapper = mount(ZeroCityPollHall); await flushPromises()
