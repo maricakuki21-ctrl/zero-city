@@ -38,7 +38,10 @@
 .city-poll-create-head p { margin: var(--bd-space-1) 0 0; color: var(--bd-text-muted); font-size: 13px; }
 .city-poll-create-head button, .city-poll-option-draft button { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 36px; border: 0; color: var(--bd-text-muted); background: transparent; }
 .city-poll-create label, .city-poll-create fieldset { display: grid; gap: var(--bd-space-2); margin: 0; padding: 0; border: 0; color: var(--bd-text-secondary); font-size: 13px; font-weight: 600; }
-.city-poll-create input, .city-poll-create textarea { width: 100%; min-height: 42px; padding: var(--bd-space-2) var(--bd-space-3); border: 1px solid var(--zc-line); border-radius: var(--bd-radius-md); color: var(--bd-text-primary); background: var(--bd-surface); font: inherit; font-weight: 400; }
+.city-poll-create input, .city-poll-create textarea, .city-poll-create select { width: 100%; min-height: 42px; padding: var(--bd-space-2) var(--bd-space-3); border: 1px solid var(--zc-line); border-radius: var(--bd-radius-md); color: var(--bd-text-primary); background: var(--bd-surface); font: inherit; font-weight: 400; }
+.city-poll-policy, .city-poll-access { color: var(--bd-text-muted); font-size: 13px; line-height: 1.7; margin-block: 12px; }
+.city-poll-item { scroll-margin-top: 80px; }
+.city-poll-option:focus-within { outline: 2px solid var(--bd-accent-teal); outline-offset: 2px; }
 .city-poll-create textarea { min-height: 100px; resize: vertical; line-height: 1.7; }
 .city-poll-option-draft { display: flex; align-items: center; gap: var(--bd-space-2); }
 .city-poll-create-footer { align-items: end; flex-wrap: wrap; }

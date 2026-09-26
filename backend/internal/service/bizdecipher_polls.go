@@ -19,10 +19,14 @@ var (
 )
 
 type CommunityPollInput struct {
-	Title    string     `json:"title"`
-	Body     string     `json:"body"`
-	Options  []string   `json:"options"`
-	ClosesAt *time.Time `json:"closes_at,omitempty"`
+	ProposalKind   string     `json:"proposal_kind"`
+	MinimumVotes   int        `json:"-"`
+	SupportPercent int        `json:"-"`
+	DisplayDays    int        `json:"-"`
+	Title          string     `json:"title"`
+	Body           string     `json:"body"`
+	Options        []string   `json:"options"`
+	ClosesAt       *time.Time `json:"closes_at,omitempty"`
 }
 
 type CommunityPollOption struct {
@@ -33,6 +37,13 @@ type CommunityPollOption struct {
 }
 
 type CommunityPoll struct {
+	ProposalKind   string                `json:"proposal_kind"`
+	MinimumVotes   int                   `json:"minimum_votes"`
+	SupportPercent int                   `json:"support_percent"`
+	DisplayDays    int                   `json:"display_days"`
+	Decision       string                `json:"decision,omitempty"`
+	PublishedAt    *time.Time            `json:"published_at,omitempty"`
+	ExpiresAt      *time.Time            `json:"expires_at,omitempty"`
 	ID             int64                 `json:"id"`
 	PostID         int64                 `json:"post_id"`
 	OwnerUserID    int64                 `json:"owner_user_id"`
@@ -87,6 +98,24 @@ func (s *BizDecipherService) CreateCommunityPoll(ctx context.Context, userID int
 	}
 	input.Title = strings.TrimSpace(input.Title)
 	input.Body = strings.TrimSpace(input.Body)
+	input.ProposalKind = strings.TrimSpace(input.ProposalKind)
+	if input.ProposalKind == "" {
+		input.ProposalKind = "general"
+	}
+	switch input.ProposalKind {
+	case "general", "announcement", "activity", "improvement", "rule":
+	default:
+		return nil, ErrCommunityPollInvalid
+	}
+	policy := PlayerAnnouncementPolicy()
+	input.MinimumVotes, input.SupportPercent, input.DisplayDays = policy.MinimumVotes, policy.SupportPercent, policy.DisplayDays
+	if input.ProposalKind == "announcement" {
+		input.Options = []string{"支持发布", "暂不发布"}
+		deadline := time.Now().Add(time.Duration(policy.VotingHours) * time.Hour)
+		input.ClosesAt = &deadline
+	} else if input.ClosesAt != nil && !input.ClosesAt.After(time.Now()) {
+		return nil, ErrCommunityPollInvalid
+	}
 	input.Options = normalizeCommunityPollOptions(input.Options)
 	if input.Title == "" || input.Body == "" || len([]rune(input.Title)) > 180 || len([]rune(input.Body)) > 4000 {
 		return nil, ErrCommunityPollInvalid
@@ -110,6 +139,9 @@ func (s *BizDecipherService) CreateCommunityPoll(ctx context.Context, userID int
 func (s *BizDecipherService) VoteCommunityPoll(ctx context.Context, pollID, userID, optionID int64) (*CommunityPoll, error) {
 	if pollID <= 0 || userID <= 0 || optionID <= 0 {
 		return nil, ErrCommunityPollInvalid
+	}
+	if err := s.requireCommunityParticipation(ctx, userID, "governance", "votes", false); err != nil {
+		return nil, err
 	}
 	repo, err := s.pollRepository()
 	if err != nil {

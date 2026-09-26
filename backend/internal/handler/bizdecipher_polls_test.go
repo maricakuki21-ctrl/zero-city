@@ -20,6 +20,16 @@ type pollHandlerRepoStub struct {
 	closeErr error
 }
 
+func (r *pollHandlerRepoStub) GetCommunityParticipation(_ context.Context, userID int64) (*service.CommunityParticipation, error) {
+	return &service.CommunityParticipation{UserID: userID, Level: 1}, nil
+}
+func (r *pollHandlerRepoStub) SetCommunityParticipation(context.Context, int64, int64, int, string) (*service.CommunityParticipation, error) {
+	return nil, nil
+}
+func (r *pollHandlerRepoStub) GetCommunityPostLocation(context.Context, int64) (string, string, error) {
+	return "governance", "votes", nil
+}
+
 func (r *pollHandlerRepoStub) EnsureProfile(_ context.Context, userID int64) (*service.BizProfile, error) {
 	return &service.BizProfile{UserID: userID}, nil
 }
