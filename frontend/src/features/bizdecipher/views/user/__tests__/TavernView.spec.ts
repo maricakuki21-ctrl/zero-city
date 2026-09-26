@@ -49,6 +49,7 @@ function mountTavern() {
         AppLayout: { template: '<div><slot /></div>' },
         StarterStories: { template: '<div data-test="local-stories">本地故事</div>' },
         Icon: true,
+        RouterLink: true,
       },
     },
   })
