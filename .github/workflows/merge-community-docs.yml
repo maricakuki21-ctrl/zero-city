@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: read
+  actions: write
 concurrency:
   group: community-documentation-merge
   cancel-in-progress: false
@@ -37,5 +37,6 @@ jobs:
               const branch = await github.rest.repos.getBranch({...context.repo, branch: 'main'});
               if (branch.data.commit.sha !== pr.base.sha) continue;
               await github.rest.pulls.merge({...context.repo, pull_number: pr.number, sha: pr.head.sha, merge_method: 'squash'});
+              await github.rest.actions.createWorkflowDispatch({...context.repo, workflow_id: 'checks.yml', ref: 'main'});
               core.info(`Merged documentation PR #${pr.number}`);
             }
