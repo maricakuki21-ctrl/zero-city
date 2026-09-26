@@ -44,7 +44,7 @@ func (r *bizDecipherRepository) GetCommunityPoll(ctx context.Context, pollID, vi
 
 func (r *bizDecipherRepository) ListCommunityPolls(ctx context.Context, viewerID int64, viewerIsAdmin bool, limit int) ([]service.CommunityPoll, error) {
 	rows, err := r.db.QueryContext(ctx, communityPollSelect+`
-		WHERE post.deleted_at IS NULL AND post.private = FALSE AND post.status NOT IN ('hidden', 'deleted')
+		WHERE post.deleted_at IS NULL AND post.private = FALSE AND post.status NOT IN ('hidden', 'deleted', 'rejected')
 		ORDER BY (p.closed_at IS NULL AND (p.closes_at IS NULL OR p.closes_at > NOW())) DESC, p.id DESC
 		LIMIT $3`, viewerID, viewerIsAdmin, limit)
 	if err != nil {
@@ -68,7 +68,7 @@ func (r *bizDecipherRepository) ListCommunityPolls(ctx context.Context, viewerID
 
 func (r *bizDecipherRepository) getCommunityPoll(ctx context.Context, pollID, viewerID int64, viewerIsAdmin bool) (*service.CommunityPoll, error) {
 	poll, err := scanCommunityPoll(r.db.QueryRowContext(ctx, communityPollSelect+`
-		WHERE p.id = $3 AND post.deleted_at IS NULL AND post.private = FALSE AND post.status NOT IN ('hidden', 'deleted')`, viewerID, viewerIsAdmin, pollID))
+		WHERE p.id = $3 AND post.deleted_at IS NULL AND post.private = FALSE AND post.status NOT IN ('hidden', 'deleted', 'rejected')`, viewerID, viewerIsAdmin, pollID))
 	if err == sql.ErrNoRows {
 		return nil, service.ErrCommunityPollNotFound
 	}
@@ -103,7 +103,7 @@ func (r *bizDecipherRepository) ListPlayerAnnouncements(ctx context.Context) ([]
 	rows, err := r.db.QueryContext(ctx, communityPollSelect+`
 		WHERE p.proposal_kind = 'announcement' AND p.closed_at IS NULL
 		AND p.closes_at <= NOW() AND p.closes_at + p.display_days * INTERVAL '1 day' > NOW()
-		AND post.deleted_at IS NULL AND NOT post.private AND post.status NOT IN ('hidden', 'deleted')
+		AND post.deleted_at IS NULL AND NOT post.private AND post.status NOT IN ('hidden', 'deleted', 'rejected')
 		AND (SELECT COUNT(*) FROM community_poll_ballots b WHERE b.poll_id = p.id) >= p.minimum_votes
 		AND (SELECT COUNT(*) FROM community_poll_ballots b JOIN community_poll_options o ON o.id = b.option_id WHERE b.poll_id = p.id AND o.position = 1) * 100
 		 >= p.support_percent * (SELECT COUNT(*) FROM community_poll_ballots b WHERE b.poll_id = p.id)

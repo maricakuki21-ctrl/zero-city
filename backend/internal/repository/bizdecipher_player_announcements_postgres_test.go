@@ -73,6 +73,13 @@ func TestPlayerAnnouncementPostgresLifecycle(t *testing.T) {
 	}
 	_, err = repo.VoteCommunityPollTx(ctx, poll.ID, users[1], poll.Options[0].ID)
 	require.ErrorIs(t, err, service.ErrCommunityPollNotFound)
+	_, err = db.Exec(`UPDATE community_posts SET status = 'rejected' WHERE id = $1`, poll.PostID)
+	require.NoError(t, err)
+	items, err = repo.ListPlayerAnnouncements(ctx)
+	require.NoError(t, err)
+	for _, item := range items {
+		require.NotEqual(t, poll.ID, item.ID)
+	}
 	_, err = db.Exec(`UPDATE community_posts SET status = 'open' WHERE id = $1`, poll.PostID)
 	require.NoError(t, err)
 	_, err = db.Exec(`UPDATE community_polls SET closes_at = NOW() - INTERVAL '8 days' WHERE id = $1`, poll.ID)

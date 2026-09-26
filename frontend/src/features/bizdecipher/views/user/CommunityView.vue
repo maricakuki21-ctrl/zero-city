@@ -954,6 +954,7 @@ import ZeroCityCityPulse from '@/features/bizdecipher/components/community/ZeroC
 import ZeroCityActivityBoard from '@/features/bizdecipher/components/community/ZeroCityActivityBoard.vue'
 import ZeroCityPollHall from '@/features/bizdecipher/components/community/ZeroCityPollHall.vue'
 import PlayerAnnouncements from '@/features/bizdecipher/components/community/PlayerAnnouncements.vue'
+import { isOfficialCommunityPost, isResidentProposal } from '@/features/bizdecipher/utils/communityProvenance'
 import ZeroCityGovernancePanel from '@/features/bizdecipher/components/community/ZeroCityGovernancePanel.vue'
 import ZeroCityForumBoard from '@/features/bizdecipher/components/community/ZeroCityForumBoard.vue'
 import ZeroCityPersonalHub from '@/features/bizdecipher/components/community/ZeroCityPersonalHub.vue'
@@ -1663,7 +1664,7 @@ function isTavernPost(post: CommunityPost): boolean {
 }
 
 function isOfficialPost(post: CommunityPost): boolean {
-  return post.kind === 'announcement' || post.district === 'governance' || hasOfficialConfirmation(post)
+  return isOfficialCommunityPost(post, hasOfficialConfirmation(post))
 }
 
 function isFollowedPost(post: CommunityPost): boolean {
@@ -2092,6 +2093,7 @@ function featuredReason(post: CommunityPost): string {
 }
 
 function postKindLabel(post: CommunityPost): string {
+  if (isResidentProposal(post)) return '议'
   if (isOfficialPost(post)) return '告'
   if (isTechnicalPost(post)) return '工'
   if (isTavernPost(post)) return '酒'
@@ -2211,7 +2213,7 @@ function subjectLabel(post: CommunityPost): string {
 }
 
 function communitySignalBadges(post: CommunityPost): string[] {
-  return [scenarioLabel(post.scenario), subjectLabel(post), actionLabel(post.action_type)].filter(Boolean)
+  return [isResidentProposal(post) ? '居民议题' : scenarioLabel(post.scenario), subjectLabel(post), actionLabel(post.action_type)].filter(Boolean)
 }
 
 function normalizedStatus(value?: string): string {
