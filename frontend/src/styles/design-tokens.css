@@ -1,0 +1,45 @@
+:root {
+  --bd-sidebar-width: 218px;
+  --bd-topbar-height: 58px;
+  --bd-content-width: 1600px;
+  --bd-page-gutter: 28px;
+  --bd-control-radius: 6px;
+  --bd-card-radius: 8px;
+  --bd-font-ui: "Segoe UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+}
+
+:root.theme-daylight {
+  color-scheme: light;
+  --bd-canvas: #f5f6f8;
+  --bd-surface: #ffffff;
+  --bd-surface-raised: #eff2f4;
+  --bd-text-primary: #202428;
+  --bd-text-secondary: #606a75;
+  --bd-text-muted: #687584;
+  --bd-accent-teal: #087f70;
+  --bd-on-action: #ffffff;
+  --bd-accent-blue: #356aca;
+  --bd-accent-gold: #976317;
+  --bd-status-danger: #bb3848;
+  --bd-ui-line: #dee3e8;
+}
+
+:root.theme-noir {
+  color-scheme: dark;
+  --bd-canvas: #141618;
+  --bd-surface: #1d2023;
+  --bd-surface-raised: #272b30;
+  --bd-text-primary: #eff2f5;
+  --bd-text-secondary: #afb7c0;
+  --bd-text-muted: #9ca6b3;
+  --bd-accent-teal: #79d7c4;
+  --bd-on-action: #143c34;
+  --bd-accent-blue: #8badf2;
+  --bd-accent-gold: #e8c471;
+  --bd-status-danger: #f28c96;
+  --bd-ui-line: #363c43;
+}
+
+@media (max-width: 767px) {
+  :root { --bd-page-gutter: 16px; --bd-topbar-height: 52px; }
+}

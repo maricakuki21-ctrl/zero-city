@@ -1,0 +1,129 @@
+.city-forum {
+  color: var(--bd-text-primary);
+  letter-spacing: 0;
+  min-width: 0;
+}
+.city-forum *, .city-forum *::before, .city-forum *::after { box-sizing: border-box; }
+.city-forum button, .city-forum input, .city-forum textarea, .city-forum select { font-family: inherit; }
+.city-forum button { cursor: pointer; }
+.city-forum button:disabled { opacity: .55; cursor: wait; }
+.city-forum :is(button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--bd-accent-teal);
+  outline-offset: 3px;
+}
+.city-forum-header, .city-forum-toolbar, .city-forum-detail-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bd-space-4);
+}
+.city-forum-header { padding-block: var(--bd-space-2) var(--bd-space-5); }
+.city-forum-breadcrumb, .city-forum-count {
+  color: var(--bd-text-muted);
+  font-size: 12px;
+}
+.city-forum-breadcrumb { margin: 0 0 var(--bd-space-1); }
+.city-forum-header h1 { margin: 0; font-size: 24px; font-weight: 700; line-height: 1.4; }
+.city-forum-primary, .city-forum-back, .city-forum-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--bd-space-2);
+  min-height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--bd-radius-md);
+  padding: var(--bd-space-2) var(--bd-space-4);
+  font-size: 14px;
+  font-weight: 600;
+}
+.city-forum-primary { color: var(--bd-surface); background: var(--bd-accent-teal); border: 1px solid transparent; }
+.city-forum-primary:hover { filter: brightness(var(--bd-control-hover-brightness)); }
+.city-forum-back, .city-forum-icon { color: var(--bd-text-secondary); background: transparent; border: 1px solid transparent; }
+.city-forum-back:hover, .city-forum-icon:hover { background: var(--bd-surface-raised); color: var(--bd-text-primary); }
+.city-forum-icon { width: 40px; padding: var(--bd-space-2); }
+.city-forum-toolbar { border-block: 1px solid var(--zc-line); padding-block: var(--bd-space-2); gap: var(--bd-space-2); }
+.city-forum-modes { display: flex; gap: var(--bd-space-1); margin-right: auto; }
+.city-forum-modes button {
+  min-height: 40px;
+  padding: var(--bd-space-2) var(--bd-space-3);
+  color: var(--bd-text-secondary);
+  font-size: 14px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+}
+.city-forum-modes button[aria-pressed="true"] { border-bottom-color: var(--bd-accent-teal); color: var(--bd-accent-teal); font-weight: 700; }
+.city-forum-modes button:hover { background: var(--bd-surface); }
+.city-forum-channels { max-width: 150px; min-width: 0; min-height: 40px; padding: var(--bd-space-2); border: 1px solid var(--zc-line); border-radius: var(--bd-radius-md); background: var(--bd-surface); color: var(--bd-text-secondary); font-size: 14px; }
+.city-forum-search {
+  display: flex;
+  align-items: center;
+  gap: var(--bd-space-2);
+  width: min(280px, 40%);
+  min-width: 0;
+  min-height: 40px;
+  padding-inline: var(--bd-space-3);
+  border: 1px solid var(--zc-line);
+  border-radius: var(--bd-radius-md);
+  color: var(--bd-text-muted);
+  background: var(--bd-surface);
+}
+.city-forum-search svg { flex-shrink: 0; }
+.city-forum-search input { width: 100%; min-width: 0; color: var(--bd-text-primary); background: transparent; border: 0; font-size: 14px; }
+.city-forum-columns { display: flex; justify-content: space-between; padding: var(--bd-space-3) var(--bd-space-4); color: var(--bd-text-muted); font-size: 12px; }
+.city-forum-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 88px;
+  align-items: start;
+  gap: var(--bd-space-4);
+  padding: var(--bd-space-4);
+  border-bottom: 1px solid var(--zc-line);
+}
+.city-forum-row:hover { background: var(--bd-surface); }
+.city-forum-avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--bd-radius-md); background: var(--bd-surface-raised); color: var(--bd-accent-teal); font-weight: 700; font-size: 18px; }
+.city-forum-topic { min-width: 0; }
+.city-forum-topic-title { display: flex; align-items: baseline; gap: var(--bd-space-2); text-align: left; border: 0; padding: 0; background: transparent; color: var(--bd-text-primary); font-size: 16px; font-weight: 650; line-height: 1.6; overflow-wrap: anywhere; }
+.city-forum-topic-title svg { flex-shrink: 0; color: var(--bd-accent-teal); }
+.city-forum-topic-title span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.city-forum-topic-title:hover { color: var(--bd-accent-teal); }
+.city-forum-excerpt { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; margin: var(--bd-space-1) 0 0; color: var(--bd-text-secondary); font-size: 14px; line-height: 1.7; }
+.city-forum-meta { display: flex; align-items: center; flex-wrap: wrap; gap: var(--bd-space-2) var(--bd-space-3); margin-top: var(--bd-space-2); font-size: 12px; color: var(--bd-text-muted); overflow-wrap: anywhere; }
+.city-forum-meta button { color: var(--bd-text-secondary); background: transparent; border: 0; padding: 0; overflow-wrap: anywhere; }
+.city-forum-meta button:hover { color: var(--bd-accent-teal); text-decoration: underline; }
+.city-forum-tag { padding-inline: var(--bd-space-1); background: var(--bd-surface-raised); }
+.city-forum-stats { display: flex; flex-direction: column; gap: var(--bd-space-1); text-align: right; font-size: 12px; color: var(--bd-text-muted); }
+.city-forum-stats strong { color: var(--bd-text-secondary); font-size: 14px; }
+.city-forum-stats small { font-size: 12px; font-weight: 400; }
+.city-forum-count { margin: var(--bd-space-4); }
+.city-forum-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--bd-space-3); padding: var(--bd-space-12) var(--bd-space-4); text-align: center; color: var(--bd-text-muted); }
+.city-forum-state h2 { font-size: 18px; font-weight: 600; color: var(--bd-text-primary); margin: 0; }
+.city-forum-state p { font-size: 14px; margin: 0; }
+.city-forum-detail-bar { padding-bottom: var(--bd-space-4); border-bottom: 1px solid var(--zc-line); font-size: 12px; color: var(--bd-text-muted); }
+.city-forum-detail-title { margin: var(--bd-space-6) 0 var(--bd-space-3); font-size: 24px; font-weight: 700; line-height: 1.5; overflow-wrap: anywhere; }
+.city-forum-body { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 16px; line-height: 1.9; margin-block: var(--bd-space-6); max-width: 880px; }
+.city-forum-replies { border-top: 1px solid var(--zc-line); margin-top: var(--bd-space-6); }
+.city-forum-replies h2 { font-size: 18px; margin-block: var(--bd-space-5); }
+.city-forum-reply { padding-block: var(--bd-space-4); border-bottom: 1px solid var(--zc-line); }
+.city-forum-reply p { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; font-size: 14px; margin-top: var(--bd-space-2); }
+.city-forum-reply-form { display: flex; flex-direction: column; align-items: flex-end; gap: var(--bd-space-3); margin-top: var(--bd-space-5); }
+.city-forum-reply-form textarea { width: 100%; resize: vertical; min-height: 112px; padding: var(--bd-space-3); border: 1px solid var(--zc-line); border-radius: var(--bd-radius-md); background: var(--bd-surface); color: var(--bd-text-primary); font-size: 14px; line-height: 1.6; }
+@media (max-width: 600px) {
+  .city-forum-toolbar { flex-wrap: wrap; }
+  .city-forum-channels { order: 2; }
+  .city-forum-search { order: 3; width: calc(100% - 48px); }
+  .city-forum-icon { order: 4; }
+  .city-forum-row { grid-template-columns: 32px minmax(0, 1fr); gap: var(--bd-space-3); padding-inline: 0; }
+  .city-forum-avatar { width: 32px; height: 32px; font-size: 16px; }
+  .city-forum-stats { grid-column: 2; flex-direction: row; gap: var(--bd-space-4); text-align: left; align-items: baseline; }
+  .city-forum-detail-title { font-size: 20px; }
+  .city-forum-columns { padding-inline: 0; }
+}
+.city-forum-participation {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--color-primary-500, #0d9488);
+  background: var(--color-primary-50, #f0fdfa);
+  color: var(--color-primary-800, #115e59);
+  font-size: 13px;
+  line-height: 1.7;
+}

@@ -1,0 +1,68 @@
+.bd-app-shell[data-visual-domain] .shared-experience { width: 100%; max-width: 1600px; color: var(--bd-text-primary); }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-header { padding: 0 0 20px; margin: 0 0 24px; border: 0; border-bottom: 1px solid var(--bd-ui-line); border-radius: 0; background: transparent; box-shadow: none; gap: 20px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-header-copy { display: flex; justify-content: space-between; align-items: center; flex: 1; width: 100%; flex-wrap: wrap; gap: 16px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-title { font-size: 24px; font-weight: 600; margin: 0; line-height: 1.4; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-header-actions { margin: 0; gap: 8px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-stats { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 20px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-stats>article { display: flex; align-items: baseline; gap: 8px; min-width: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-stats b { font-size: 18px; font-weight: 600; color: var(--bd-text-primary); }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-stats span { font-size: 12px; color: var(--bd-text-secondary); }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-btn { min-height: 36px; gap: 8px; font-size: 13px; font-weight: 500; box-shadow: none; border: 1px solid var(--bd-ui-line); background: var(--bd-surface); color: var(--bd-text-primary); border-radius: 6px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-btn-primary { color: #fff; background: var(--bd-accent-teal); border-color: transparent; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-btn-danger { color: var(--bd-status-danger); }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-empty { padding: 40px 16px; box-shadow: none; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-header { display: block; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-tabs { gap: 28px; margin-bottom: 0; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-tab { background: transparent; color: var(--bd-text-secondary); box-shadow: none; border-radius: 0; padding: 12px 0; border-bottom: 2px solid transparent; font-size: 14px; font-weight: 500; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-tab.active { color: var(--bd-accent-teal); border-color: var(--bd-accent-teal); }
+.member-subtabs { display: flex; align-items: center; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--bd-ui-line); margin-bottom: 20px; font-size: 13px; color: var(--bd-text-secondary); }
+.member-subtabs button { min-height: 32px; }.member-subtabs button.active { color: var(--bd-accent-teal); }.member-subtabs a { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-section { margin-top: 24px; padding: 0; background: transparent; box-shadow: none; border: 0; border-radius: 0; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-section-head h2 { font-size: 18px; font-weight: 600; }
+.member-resource-search { display: flex; align-items: center; gap: 10px; padding: 0 12px; background: var(--bd-surface); border: 1px solid var(--bd-ui-line); border-radius: 6px; margin: 16px 0; color: var(--bd-text-secondary); }
+.member-resource-search input { width: 100%; min-width: 0; height: 40px; background: transparent; font-size: 14px; }
+.member-resource-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.member-resource-toolbar .member-resource-search { flex: 1 1 260px; margin: 0; }
+.member-state-filter { display: flex; align-items: center; gap: 8px; color: var(--bd-text-secondary); font-size: 12px; }
+.member-state-filter select { min-height: 40px; border: 1px solid var(--bd-ui-line); border-radius: 6px; padding: 0 10px; background: var(--bd-surface); color: var(--bd-text-primary); }
+.member-resource-table-wrap { max-width: 100%; overflow: auto; }
+.member-resource-table { width: 100%; min-width: 760px; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+.member-resource-table th { padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 500; color: var(--bd-text-secondary); background: var(--bd-canvas); border-bottom: 1px solid var(--bd-ui-line); }
+.member-resource-table th:first-child { width: 28%; }
+.member-resource-table th:nth-child(2) { width: 15%; }
+.member-resource-table th:last-child { width: 29%; }
+.member-resource-table td { padding: 16px 12px; vertical-align: top; border-bottom: 1px solid var(--bd-ui-line); overflow-wrap: anywhere; }
+.member-resource-name { color: var(--bd-text-primary); font-weight: 600; }
+.member-resource-name:hover { color: var(--bd-accent-teal); }
+.member-resource-table td > small { display: block; color: var(--bd-text-secondary); font-size: 11px; margin: 5px 0; }
+.member-resource-table .member-details { margin: 8px 0 0; padding: 0; }
+.member-resource-table .member-details summary { font-size: 11px; }
+.member-seat-facts { display: grid; grid-template-columns: auto 1fr; gap: 5px 10px; font-size: 11px; }
+.member-seat-facts dt { color: var(--bd-text-secondary); }
+.member-seat-facts dd { margin: 0; }
+.member-money { font-variant-numeric: tabular-nums; }
+.member-row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.member-ledger-filter { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; color: var(--bd-text-secondary); font-size: 12px; }
+.member-details { font-size: 12px; color: var(--bd-text-secondary); line-height: 1.7; margin: 12px 0; }
+.member-details summary { cursor: pointer; min-height: 32px; padding: 6px 0; }.member-details p { margin: 8px 0; }
+.bd-app-shell[data-visual-domain] .shared-experience :is(.asmy-rule-card,.asmy-explain-grid>article) { border: 0; box-shadow: none; border-radius: 0; background: transparent; padding: 0; }
+.bd-app-shell[data-visual-domain] .shared-experience :is(.asmy-pool-card,.asmy-seat-card,.asmy-unified-card) { padding: 18px; border: 1px solid var(--bd-ui-line); border-radius: 8px; background: var(--bd-surface); box-shadow: none; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-metric-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-metric-grid>span { padding: 0; border: 0; box-shadow: none; border-radius: 0; background: transparent; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-pool-actions { margin-top: 16px; gap: 8px; }
+.bd-app-shell[data-visual-domain] .shared-experience .asmy-unified-status { border: 0; padding: 0; background: transparent; box-shadow: none; }
+.shared-experience :is(button,a,input,select,summary):focus-visible { outline: 2px solid var(--bd-accent-teal); outline-offset: 2px; }
+.bd-app-shell[data-visual-domain] .shared-experience :is(.asmy-tab,.as-market-view-tab) { border-top: 0; border-left: 0; border-right: 0; }
+@media(max-width:767px) {
+  .bd-app-shell[data-visual-domain] .shared-experience .as-filter-row { gap: 8px; }.market-search { flex-basis: 100%; }
+  .bd-app-shell[data-visual-domain] .shared-experience :is(.as-discovery-toolbar,.as-market-tools) { align-items: stretch; flex-direction: column; }
+  .bd-app-shell[data-visual-domain] .shared-experience .as-source-segments { width: 100%; }
+  .bd-app-shell[data-visual-domain] .shared-experience .as-source-segments button { flex: 1; }
+  .bd-app-shell[data-visual-domain] .shared-experience .as-header-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; width: 100%; }
+  .bd-app-shell[data-visual-domain] .shared-experience .as-header .as-stat { display: grid; align-content: start; gap: 4px; }
+  .bd-app-shell[data-visual-domain] .shared-experience .as-select { min-width: 0; max-width: 100%; flex: 1; }
+  .bd-app-shell[data-visual-domain] .shared-experience .as-count-chip { flex-basis: 100%; }
+  .bd-app-shell[data-visual-domain] .shared-experience :is(.asmy-pool-main,.asmy-unified-card) { display: block; }
+  .bd-app-shell[data-visual-domain] .shared-experience .asmy-pool-avatar { display: none; }
+  .bd-app-shell[data-visual-domain] .shared-experience .asmy-pool-title-row { gap: 6px; }.member-subtabs { gap: 16px; }
+}

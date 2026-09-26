@@ -1,0 +1,412 @@
+//go:build unit
+
+package service
+
+import (
+	"bytes"
+	"context"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
+
+	"github.com/Wei-Shaw/sub2api/internal/pkg/openai_compat"
+	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/require"
+	"github.com/tidwall/gjson"
+)
+
+func TestForwardResponses_ForceChatCompletionsRoutesNonStreamingToChatCompletions(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"gpt-5.4","input":"hello","stream":false}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/responses", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstream := &httpUpstreamRecorder{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{"Content-Type": []string{"application/json"}, "x-request-id": []string{"rid_resp_chat_json"}},
+		Body: io.NopCloser(strings.NewReader(
+			`{"id":"chatcmpl_json","object":"chat.completion","model":"gpt-5.4","choices":[{"index":0,"message":{"role":"assistant","content":"ok"},"finish_reason":"stop"}],"usage":{"prompt_tokens":3,"completion_tokens":2,"total_tokens":5,"prompt_tokens_details":{"cached_tokens":1}}}`,
+		)),
+	}}
+	svc := &OpenAIGatewayService{
+		cfg:          rawChatCompletionsTestConfig(),
+		httpUpstream: upstream,
+	}
+
+	result, err := svc.Forward(context.Background(), c, forceChatResponsesFallbackAccount(), body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Equal(t, "http://upstream.example/v1/chat/completions", upstream.lastReq.URL.String())
+	require.Equal(t, HTTPUpstreamProfileOpenAI, HTTPUpstreamProfileFromContext(upstream.lastReq.Context()))
+	require.Equal(t, "hello", gjson.GetBytes(upstream.lastBody, "messages.0.content").String())
+	require.False(t, gjson.GetBytes(upstream.lastBody, "input").Exists())
+	require.Equal(t, "response", gjson.Get(rec.Body.String(), "object").String())
+	require.Equal(t, "ok", gjson.Get(rec.Body.String(), "output.0.content.0.text").String())
+	require.Equal(t, 3, result.Usage.InputTokens)
+	require.Equal(t, 2, result.Usage.OutputTokens)
+	require.Equal(t, 1, result.Usage.CacheReadInputTokens)
+	require.False(t, result.Stream)
+}
+
+func TestForwardResponses_ForceChatCompletionsRoutesStreamingToChatCompletions(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"gpt-5.4","input":"hello","stream":true}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/responses", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstreamBody := strings.Join([]string{
+		`data: {"id":"chatcmpl_stream","object":"chat.completion.chunk","model":"gpt-5.4","choices":[{"index":0,"delta":{"role":"assistant"},"finish_reason":null}]}`,
+		"",
+		`data: {"id":"chatcmpl_stream","object":"chat.completion.chunk","model":"gpt-5.4","choices":[{"index":0,"delta":{"content":"he"},"finish_reason":null}]}`,
+		"",
+		`data: {"id":"chatcmpl_stream","object":"chat.completion.chunk","model":"gpt-5.4","choices":[{"index":0,"delta":{"content":"llo"},"finish_reason":null}]}`,
+		"",
+		`data: {"id":"chatcmpl_stream","object":"chat.completion.chunk","model":"gpt-5.4","choices":[{"index":0,"delta":{},"finish_reason":"stop"}]}`,
+		"",
+		`data: {"id":"chatcmpl_stream","object":"chat.completion.chunk","model":"gpt-5.4","choices":[],"usage":{"prompt_tokens":4,"completion_tokens":3,"total_tokens":7}}`,
+		"",
+		"data: [DONE]",
+		"",
+	}, "\n")
+	upstream := &httpUpstreamRecorder{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{"Content-Type": []string{"text/event-stream"}, "x-request-id": []string{"rid_resp_chat_stream"}},
+		Body:       io.NopCloser(strings.NewReader(upstreamBody)),
+	}}
+	svc := &OpenAIGatewayService{
+		cfg:          rawChatCompletionsTestConfig(),
+		httpUpstream: upstream,
+	}
+
+	result, err := svc.Forward(context.Background(), c, forceChatResponsesFallbackAccount(), body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Equal(t, "http://upstream.example/v1/chat/completions", upstream.lastReq.URL.String())
+	require.True(t, gjson.GetBytes(upstream.lastBody, "stream_options.include_usage").Bool())
+	require.Contains(t, rec.Body.String(), "event: response.output_text.delta")
+	require.Contains(t, rec.Body.String(), `"delta":"he"`)
+	require.Contains(t, rec.Body.String(), "event: response.completed")
+	require.Contains(t, rec.Body.String(), `"input_tokens":4`)
+	require.Contains(t, rec.Body.String(), "data: [DONE]")
+	require.Equal(t, 4, result.Usage.InputTokens)
+	require.Equal(t, 3, result.Usage.OutputTokens)
+	require.True(t, result.Stream)
+	require.NotNil(t, result.FirstTokenMs)
+}
+
+func TestForwardResponses_DeepSeekReasoningOnlyStreamProducesVisibleText(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"deepseek-reasoner","input":"hello","stream":true}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/responses", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstreamBody := strings.Join([]string{
+		`data: {"id":"chatcmpl_reasoning","object":"chat.completion.chunk","model":"deepseek-reasoner","choices":[{"index":0,"delta":{"role":"assistant","content":null,"reasoning_content":""},"finish_reason":null}]}`,
+		"",
+		`data: {"id":"chatcmpl_reasoning","object":"chat.completion.chunk","model":"deepseek-reasoner","choices":[{"index":0,"delta":{"reasoning_content":"visible fallback"},"finish_reason":null}]}`,
+		"",
+		`data: {"id":"chatcmpl_reasoning","object":"chat.completion.chunk","model":"deepseek-reasoner","choices":[{"index":0,"delta":{"content":""},"finish_reason":"length"}],"usage":{"prompt_tokens":4,"completion_tokens":3,"total_tokens":7}}`,
+		"",
+		"data: [DONE]",
+		"",
+	}, "\n")
+	upstream := &httpUpstreamRecorder{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{"Content-Type": []string{"text/event-stream"}, "x-request-id": []string{"rid_deepseek_reasoning_responses_stream"}},
+		Body:       io.NopCloser(strings.NewReader(upstreamBody)),
+	}}
+	svc := &OpenAIGatewayService{
+		cfg:          rawChatCompletionsTestConfig(),
+		httpUpstream: upstream,
+	}
+
+	result, err := svc.Forward(context.Background(), c, forceChatResponsesFallbackAccount(), body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.True(t, result.Stream)
+	require.Contains(t, rec.Body.String(), "event: response.output_text.delta")
+	require.Contains(t, rec.Body.String(), `"delta":"visible fallback"`)
+	require.Contains(t, rec.Body.String(), `"status":"incomplete"`)
+	require.Contains(t, rec.Body.String(), "data: [DONE]")
+}
+
+func TestForwardResponses_AutoSupportedAccountStillUsesResponsesEndpoint(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"gpt-5.4","input":"hello","stream":false}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/responses", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstream := &httpUpstreamRecorder{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{"Content-Type": []string{"application/json"}, "x-request-id": []string{"rid_resp_native"}},
+		Body: io.NopCloser(strings.NewReader(
+			`{"id":"resp_native","object":"response","model":"gpt-5.4","status":"completed","output":[{"type":"message","role":"assistant","content":[{"type":"output_text","text":"ok"}],"status":"completed"}],"usage":{"input_tokens":5,"output_tokens":2,"total_tokens":7}}`,
+		)),
+	}}
+	svc := &OpenAIGatewayService{
+		cfg:          rawChatCompletionsTestConfig(),
+		httpUpstream: upstream,
+	}
+	account := rawChatCompletionsTestAccount()
+	account.Extra = map[string]any{
+		openai_compat.ExtraKeyResponsesMode:      string(openai_compat.ResponsesSupportModeAuto),
+		openai_compat.ExtraKeyResponsesSupported: true,
+	}
+
+	result, err := svc.Forward(context.Background(), c, account, body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Equal(t, "http://upstream.example/v1/responses", upstream.lastReq.URL.String())
+	require.True(t, gjson.GetBytes(upstream.lastBody, "input").Exists())
+	require.False(t, gjson.GetBytes(upstream.lastBody, "messages").Exists())
+	require.Equal(t, "ok", gjson.Get(rec.Body.String(), "output.0.content.0.text").String())
+}
+
+func TestForwardSharedPoolResponses_UsesChatFallbackModelMappingAndProxy(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"codex-shared-visible","input":"hello","stream":false}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/responses", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+	c.Request.Header.Set("x-codex-turn-state", "must-not-leak-to-raw-cc-upstream")
+
+	upstream := &httpUpstreamRecorder{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{"Content-Type": []string{"application/json"}, "x-request-id": []string{"rid_shared_pool_resp"}},
+		Body: io.NopCloser(strings.NewReader(
+			`{"id":"chatcmpl_shared_pool","object":"chat.completion","model":"gpt-5.4-upstream","choices":[{"index":0,"message":{"role":"assistant","content":"ok"},"finish_reason":"stop"}],"usage":{"prompt_tokens":6,"completion_tokens":4,"total_tokens":10}}`,
+		)),
+	}}
+	svc := &OpenAIGatewayService{
+		cfg:          rawChatCompletionsTestConfig(),
+		httpUpstream: upstream,
+	}
+	accessKey := &SharedPoolAccessKey{
+		PoolID:             77,
+		UpstreamBaseURL:    "http://shared-upstream.example/v1/",
+		UpstreamAPIKey:     "sk-upstream-shared",
+		UpstreamModelName:  "gpt-5.4-upstream",
+		ProxyURL:           "http://proxy.example:7890",
+		AccountConcurrency: 3,
+	}
+
+	result, err := svc.ForwardSharedPoolResponses(context.Background(), c, accessKey, body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Equal(t, "http://shared-upstream.example/v1/chat/completions", upstream.lastReq.URL.String())
+	require.Equal(t, "Bearer sk-upstream-shared", upstream.lastReq.Header.Get("Authorization"))
+	require.Empty(t, upstream.lastReq.Header.Get("x-codex-turn-state"))
+	require.Equal(t, "http://proxy.example:7890", upstream.lastProxyURL)
+	require.Equal(t, int64(-77), upstream.lastAccountID)
+	require.Equal(t, 3, upstream.lastAccountConcurrency)
+	require.Equal(t, "gpt-5.4-upstream", gjson.GetBytes(upstream.lastBody, "model").String())
+	require.Equal(t, "codex-shared-visible", result.Model)
+	require.Equal(t, "gpt-5.4-upstream", result.BillingModel)
+	require.Equal(t, "gpt-5.4-upstream", result.UpstreamModel)
+	require.Equal(t, 6, result.Usage.InputTokens)
+	require.Equal(t, 4, result.Usage.OutputTokens)
+	require.Equal(t, "ok", gjson.Get(rec.Body.String(), "output.0.content.0.text").String())
+}
+
+func TestForwardSharedPoolOAuthCompactUsesSameNormalizedProxyAsProbe(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"gpt-5.6","input":"compact me","stream":false}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/responses/compact", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstream := &httpUpstreamRecorder{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{"Content-Type": []string{"application/json"}, "x-request-id": []string{"rid_shared_pool_compact"}},
+		Body: io.NopCloser(strings.NewReader(
+			`{"id":"resp_shared_pool_compact","status":"completed","model":"gpt-5.6","output":[{"type":"compaction","status":"completed","encrypted_content":"summary"}],"usage":{"input_tokens":5,"output_tokens":2,"total_tokens":7}}`,
+		)),
+	}}
+	svc := &OpenAIGatewayService{httpUpstream: upstream}
+	accessKey := &SharedPoolAccessKey{
+		PoolID:             77,
+		AccountID:          91,
+		AuthType:           AccountTypeOAuth,
+		OAuthCredentials:   map[string]any{"access_token": "oauth-token", "chatgpt_account_id": "chatgpt-account"},
+		UpstreamModelName:  "gpt-5.6",
+		ProxyURL:           "socks5://127.0.0.1:1080",
+		AccountConcurrency: 2,
+	}
+
+	result, err := svc.ForwardSharedPoolResponses(context.Background(), c, accessKey, body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Equal(t, chatgptCodexURL+"/compact", upstream.lastReq.URL.String())
+	require.Equal(t, "socks5h://127.0.0.1:1080", upstream.lastProxyURL)
+	require.Equal(t, int64(-91), upstream.lastAccountID)
+	require.Equal(t, 2, upstream.lastAccountConcurrency)
+}
+
+func TestForwardSharedPoolRawChatCompletions_UsesUpstreamModelAndProxy(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"codex-shared-visible","messages":[{"role":"user","content":"hello"}],"stream":false}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/chat/completions", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstream := &httpUpstreamRecorder{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{"Content-Type": []string{"application/json"}, "x-request-id": []string{"rid_shared_pool_chat"}},
+		Body: io.NopCloser(strings.NewReader(
+			`{"id":"chatcmpl_shared_pool_chat","object":"chat.completion","model":"gpt-5.4-upstream","choices":[{"index":0,"message":{"role":"assistant","content":"ok"},"finish_reason":"stop"}],"usage":{"prompt_tokens":2,"completion_tokens":3,"total_tokens":5}}`,
+		)),
+	}}
+	svc := &OpenAIGatewayService{
+		cfg:          rawChatCompletionsTestConfig(),
+		httpUpstream: upstream,
+	}
+	accessKey := &SharedPoolAccessKey{
+		PoolID:             88,
+		UpstreamBaseURL:    "http://shared-chat-upstream.example",
+		UpstreamAPIKey:     "sk-upstream-chat-shared",
+		UpstreamModelName:  "gpt-5.4-upstream",
+		ProxyURL:           "socks5://127.0.0.1:1080",
+		AccountConcurrency: 2,
+	}
+
+	result, err := svc.ForwardSharedPoolRawChatCompletions(context.Background(), c, accessKey, body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Equal(t, "http://shared-chat-upstream.example/v1/chat/completions", upstream.lastReq.URL.String())
+	require.Equal(t, "Bearer sk-upstream-chat-shared", upstream.lastReq.Header.Get("Authorization"))
+	require.Equal(t, "socks5h://127.0.0.1:1080", upstream.lastProxyURL)
+	require.Equal(t, int64(-88), upstream.lastAccountID)
+	require.Equal(t, 2, upstream.lastAccountConcurrency)
+	require.Equal(t, "gpt-5.4-upstream", gjson.GetBytes(upstream.lastBody, "model").String())
+	require.Equal(t, "codex-shared-visible", result.Model)
+	require.Equal(t, "gpt-5.4-upstream", result.BillingModel)
+	require.Equal(t, "gpt-5.4-upstream", result.UpstreamModel)
+}
+
+func TestForwardSharedPoolRawChatCompletions_RetriesExplicitCapacityFailure(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"codex-shared-visible","messages":[{"role":"user","content":"hello"}],"stream":false}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/chat/completions", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstream := &httpUpstreamRecorder{responses: []*http.Response{
+		{
+			StatusCode: http.StatusInternalServerError,
+			Header:     http.Header{"Content-Type": []string{"text/plain"}},
+			Body:       io.NopCloser(strings.NewReader("Failed to start container: Maximum number of running container instances exceeded. Try again later.")),
+		},
+		{
+			StatusCode: http.StatusOK,
+			Header:     http.Header{"Content-Type": []string{"application/json"}},
+			Body: io.NopCloser(strings.NewReader(
+				`{"id":"chatcmpl_retry","object":"chat.completion","model":"gpt-5.4-upstream","choices":[{"index":0,"message":{"role":"assistant","content":"ok"},"finish_reason":"stop"}],"usage":{"prompt_tokens":2,"completion_tokens":3,"total_tokens":5}}`,
+			)),
+		},
+	}}
+	svc := &OpenAIGatewayService{cfg: rawChatCompletionsTestConfig(), httpUpstream: upstream}
+	accessKey := &SharedPoolAccessKey{
+		PoolID:            88,
+		UpstreamBaseURL:   "http://shared-chat-upstream.example",
+		UpstreamAPIKey:    "sk-upstream-chat-shared",
+		UpstreamModelName: "gpt-5.4-upstream",
+	}
+
+	result, err := svc.ForwardSharedPoolRawChatCompletions(context.Background(), c, accessKey, body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Len(t, upstream.requests, 2)
+	require.Equal(t, "ok", gjson.Get(rec.Body.String(), "choices.0.message.content").String())
+}
+
+func TestForwardSharedPoolRawChatCompletions_RetriesGenericTransientServerError(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	body := []byte(`{"model":"codex-shared-visible","messages":[{"role":"user","content":"hello"}],"stream":false}`)
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	c.Request = httptest.NewRequest(http.MethodPost, "/v1/chat/completions", bytes.NewReader(body))
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	upstream := &httpUpstreamRecorder{responses: []*http.Response{
+		{
+			StatusCode: http.StatusInternalServerError,
+			Header:     http.Header{"Content-Type": []string{"application/json"}},
+			Body:       io.NopCloser(strings.NewReader(`{"error":{"message":"unknown internal failure"}}`)),
+		},
+		{
+			StatusCode: http.StatusOK,
+			Header:     http.Header{"Content-Type": []string{"application/json"}},
+			Body: io.NopCloser(strings.NewReader(
+				`{"id":"chatcmpl_retry_500","object":"chat.completion","model":"gpt-5.4-upstream","choices":[{"index":0,"message":{"role":"assistant","content":"ok"},"finish_reason":"stop"}],"usage":{"prompt_tokens":2,"completion_tokens":3,"total_tokens":5}}`,
+			)),
+		},
+	}}
+	svc := &OpenAIGatewayService{cfg: rawChatCompletionsTestConfig(), httpUpstream: upstream}
+	accessKey := &SharedPoolAccessKey{
+		PoolID:            88,
+		UpstreamBaseURL:   "http://shared-chat-upstream.example",
+		UpstreamAPIKey:    "sk-upstream-chat-shared",
+		UpstreamModelName: "gpt-5.4-upstream",
+	}
+
+	result, err := svc.ForwardSharedPoolRawChatCompletions(context.Background(), c, accessKey, body)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	require.Len(t, upstream.requests, 2)
+}
+
+func TestIsSafeSharedPoolCapacityRetryStatusMatrix(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	for _, status := range []int{
+		http.StatusRequestTimeout,
+		http.StatusTooEarly,
+		http.StatusTooManyRequests,
+		http.StatusInternalServerError,
+		http.StatusBadGateway,
+		http.StatusServiceUnavailable,
+		http.StatusGatewayTimeout,
+	} {
+		t.Run(http.StatusText(status), func(t *testing.T) {
+			rec := httptest.NewRecorder()
+			c, _ := gin.CreateTestContext(rec)
+			require.True(t, isSafeSharedPoolCapacityRetry(c, &UpstreamFailoverError{StatusCode: status}))
+		})
+	}
+
+	rec := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(rec)
+	require.False(t, isSafeSharedPoolCapacityRetry(c, &UpstreamFailoverError{StatusCode: http.StatusBadRequest}))
+	rec.WriteHeader(http.StatusOK)
+	require.False(t, isSafeSharedPoolCapacityRetry(c, &UpstreamFailoverError{StatusCode: http.StatusTooManyRequests}))
+}
+
+func forceChatResponsesFallbackAccount() *Account {
+	account := rawChatCompletionsTestAccount()
+	account.Extra = map[string]any{
+		openai_compat.ExtraKeyResponsesMode: string(openai_compat.ResponsesSupportModeForceChatCompletions),
+	}
+	return account
+}

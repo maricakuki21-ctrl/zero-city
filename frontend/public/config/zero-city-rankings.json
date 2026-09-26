@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "items": [
+    {
+      "key": "spending",
+      "title": "有效消费",
+      "description": "真实有效消费形成排名，失败、退款与赠送额度不计入。",
+      "behaviorLabel": "多使用真实服务",
+      "weeklyRule": "统计口径与资格待权威数据源确认",
+      "monthlyRule": "未接入奖励结算，不预告奖励",
+      "source": "spending",
+      "window": "week",
+      "windowLabel": "本周",
+      "valueUnit": "余额",
+      "limit": 10,
+      "order": 10,
+      "enabled": true
+    },
+    {
+      "key": "contribution",
+      "title": "城市贡献",
+      "description": "采纳、确认、证据与真实交付共同形成贡献。",
+      "behaviorLabel": "留下可信贡献",
+      "weeklyRule": "只展示当前可见内容的贡献线索",
+      "monthlyRule": "待权威贡献与资格服务接入",
+      "source": "community",
+      "window": "week",
+      "windowLabel": "本周",
+      "valueUnit": "贡献",
+      "limit": 5,
+      "order": 20,
+      "enabled": true,
+      "route": "/community?district=governance&channel=badges"
+    },
+    {
+      "key": "answers",
+      "title": "答疑互助",
+      "description": "按采纳、解决与有效证据计分，不按回复数量灌水。",
+      "behaviorLabel": "接住真实问题",
+      "weeklyRule": "仅按真实采纳、解决与证据信号整理",
+      "monthlyRule": "统计范围以页面标注的数据源为准",
+      "source": "answers",
+      "window": "week",
+      "windowLabel": "本周",
+      "valueUnit": "回答",
+      "limit": 5,
+      "order": 30,
+      "enabled": true,
+      "route": "/community?district=workshop&channel=help-desk"
+    },
+    {
+      "key": "assets",
+      "title": "作品能力",
+      "description": "按真实使用、收藏、复用与交付证明形成排名。",
+      "behaviorLabel": "做出可复用作品",
+      "weeklyRule": "作品复用与交付证明需由原始系统确认",
+      "monthlyRule": "未实现的推荐或奖励不在此承诺",
+      "source": "assets",
+      "window": "month",
+      "windowLabel": "本月",
+      "valueUnit": "复用",
+      "limit": 5,
+      "order": 40,
+      "enabled": true,
+      "route": "/assets"
+    }
+  ]
+}

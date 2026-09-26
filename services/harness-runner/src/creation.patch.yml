@@ -1,0 +1,42 @@
+- id: llm-deepseek
+  disabled: true
+- id: deepseek-llm-api-extensions
+  disabled: true
+- id: session-log-deepseek
+  disabled: true
+- id: plugin-package-inventory-deepseek
+  disabled: true
+- id: persistent-bash
+  disabled: true
+- id: persistent-pwsh
+  disabled: true
+- id: str-replace-editor
+  disabled: true
+- id: system-prompt
+  config:
+    personaPrefix: >-
+      You are the BizDecipher creation assistant. Use only the available tools.
+      Load selected skills before following their procedures.
+      Never claim a generated file exists unless a tool returned it.
+      Do not expose credentials. Respond in the user's language.
+- insert:
+    - id: biz-model
+      name: '@deepseek-ai/dsh-llm-pi-ai'
+      config:
+        providers:
+          biz:
+            apiKeyEnv: BIZ_LANGUAGE_KEY
+            api: openai-completions
+            baseURL: !!js process.env.BIZ_GATEWAY_URL
+            models:
+              - id: !!js process.env.BIZ_LANGUAGE_MODEL
+                contextWindow: 32768
+            retryPolicy:
+              mode: normal
+              maxRetries: 0
+    - id: biz-skills
+      name: '@deepseek-ai/dsh-skill'
+    - id: biz-skill-loader
+      name: '@deepseek-ai/dsh-tool-skill'
+    - id: biz-creation
+      name: ./plugin.mjs

@@ -1,0 +1,10 @@
+.git
+**/node_modules
+**/.runtime
+**/.env*
+**/*.pem
+**/*.key
+**/*.dump
+**/*.log
+outputs
+backend/data

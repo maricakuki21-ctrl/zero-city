@@ -1,0 +1,216 @@
+{
+  "version": "2026-06-28",
+  "source": "generated independent website mascots, not card reuse",
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "medium",
+  "count": 14,
+  "items": [
+    {
+      "slug": "gateway-operator",
+      "file": "gateway-operator.png",
+      "raw": "raw/gateway-operator.raw.png",
+      "description": "Gateway operator holding a small glowing router node and cable loop, duty captain for the public homepage hero.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "key-keeper",
+      "file": "key-keeper.png",
+      "raw": "raw/key-keeper.raw.png",
+      "description": "Key keeper holding a brass access key and tiny lock, login and registration guardian.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "usage-meter-reader",
+      "file": "usage-meter-reader.png",
+      "raw": "raw/usage-meter-reader.raw.png",
+      "description": "Usage meter reader carrying a small analog meter and clipboard, for usage and cost dashboard.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "status-inspector",
+      "file": "status-inspector.png",
+      "raw": "raw/status-inspector.raw.png",
+      "description": "Status inspector with a signal lantern and health-check scope, for channel status and uptime pages.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "shared-pool-owner",
+      "file": "shared-pool-owner.png",
+      "raw": "raw/shared-pool-owner.raw.png",
+      "description": "Shared pool owner steward holding a transparent pool ledger tablet and seat token, for account square and pool owner areas.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "community-announcer",
+      "file": "community-announcer.png",
+      "raw": "raw/community-announcer.raw.png",
+      "description": "Community announcer with a small megaphone and bulletin scroll, for community square hero.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "credit-cashier",
+      "file": "credit-cashier.png",
+      "raw": "raw/credit-cashier.raw.png",
+      "description": "Credit cashier holding a coin tray and receipt stamp, for recharge, redeem, and payment pages.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "api-key-forger",
+      "file": "api-key-forger.png",
+      "raw": "raw/api-key-forger.raw.png",
+      "description": "API key forger at a tiny anvil shaping a glowing key token, for API Keys page and key creation states.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "repair-support",
+      "file": "repair-support.png",
+      "raw": "raw/repair-support.raw.png",
+      "description": "Repair support worker with a teal patch kit and wrench, for errors, API accidents, and support states.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "bg_sample": [
+          238,
+          16,
+          84
+        ],
+        "transparent_pixels": 577274,
+        "partial_pixels": 59172,
+        "alpha": true
+      }
+    },
+    {
+      "slug": "archive-librarian",
+      "file": "archive-librarian.png",
+      "raw": "raw/archive-librarian.raw.png",
+      "description": "Archive librarian carrying a small catalog box and file cards, for docs, card archive, and knowledge areas.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "admin-governor",
+      "file": "admin-governor.png",
+      "raw": "raw/admin-governor.raw.png",
+      "description": "Admin governor with a governance seal, inspection tablet, and black coat, for admin shared pool governance.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "alpha": true,
+        "reused": true
+      }
+    },
+    {
+      "slug": "empty-state-sleeper",
+      "file": "empty-state-sleeper.png",
+      "raw": "raw/empty-state-sleeper.raw.png",
+      "description": "Sleepy empty-state helper sitting with a small unplugged cable and tiny lamp, for blank lists and no-data states.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "bg_sample": [
+          242,
+          24,
+          243
+        ],
+        "transparent_pixels": 717195,
+        "partial_pixels": 300,
+        "alpha": true
+      }
+    },
+    {
+      "slug": "onboarding-guide",
+      "file": "onboarding-guide.png",
+      "raw": "raw/onboarding-guide.raw.png",
+      "description": "Onboarding guide pointing toward a glowing doorway, holding a small city map, for first-run guidance.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "bg_sample": [
+          255,
+          49,
+          217
+        ],
+        "transparent_pixels": 535908,
+        "partial_pixels": 39520,
+        "alpha": true
+      }
+    },
+    {
+      "slug": "risk-sweeper",
+      "file": "risk-sweeper.png",
+      "raw": "raw/risk-sweeper.raw.png",
+      "description": "Risk sweeper cleaning warning sparks with a broom and shield badge, for risk control and moderation pages.",
+      "usage": "website UI mascot, independent from card art",
+      "image": {
+        "width": 1024,
+        "height": 1024,
+        "bg_sample": [
+          243,
+          26,
+          244
+        ],
+        "transparent_pixels": 717071,
+        "partial_pixels": 345,
+        "alpha": true
+      }
+    }
+  ]
+}

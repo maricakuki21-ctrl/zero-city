@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-labelledby="title">
+  <title id="title">零号</title>
+  <path d="M3 0H32V25L25 32H0V3Z" fill="#172421"/>
+  <path d="M10 5H22L25 8V23L22 26H10L7 23V8ZM12 10V21H20V10Z" fill="#fff" fill-rule="evenodd"/>
+  <path d="M21 4H28V11H24V8H21Z" fill="#fa6448"/>
+  <path d="M5 28H14V30H5Z" fill="#39d6ae"/>
+</svg>

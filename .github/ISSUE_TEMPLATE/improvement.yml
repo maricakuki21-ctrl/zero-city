@@ -1,0 +1,31 @@
+name: 城市共建提案
+description: 提出一个具体问题，或认领一项改进
+title: "[共建] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 哪里不好用？
+      description: 请说明页面、操作步骤和目前结果；不要粘贴密钥。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 希望改成什么？
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 怎么判断改好了？
+    validations:
+      required: true
+  - type: dropdown
+    id: involvement
+    attributes:
+      label: 我愿意参与
+      options:
+        - 讨论和体验测试
+        - 开发实现
+        - 设计和文案

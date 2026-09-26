@@ -1,0 +1,1803 @@
+{
+  "generated_at": "2026-06-28T12:58:11",
+  "status": "usable pool with 4 temporary fallback copies",
+  "target_size": [
+    1024,
+    1536
+  ],
+  "usable_count": 136,
+  "excluded_count": 0,
+  "fallbacks": [
+    {
+      "target": "collectible/good/digital_scavenger.png",
+      "fallback_source": "collectible/good/noise_reducer.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    },
+    {
+      "target": "collectible/epic/miracle_tester.png",
+      "fallback_source": "collectible/epic/hit_rate_tamer.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    },
+    {
+      "target": "collectible/legendary/numbered_crown_holder.png",
+      "fallback_source": "collectible/legendary/zero_hour_lighthouse_keeper.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    },
+    {
+      "target": "collectible/legendary/hidden_plot_curator.png",
+      "fallback_source": "collectible/legendary/afterglow_cartographer.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    }
+  ],
+  "usable": [
+    {
+      "asset_id": "collectible:low_battery_sprite",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "low_battery_sprite",
+      "code": "ZC-C-001",
+      "name": "低电量小人",
+      "rarity": "common",
+      "rel": "collectible/common/low_battery_sprite.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:early_failer",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "early_failer",
+      "code": "ZC-C-002",
+      "name": "早起失败者",
+      "rarity": "common",
+      "rel": "collectible/common/early_failer.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:sofa_observer",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "sofa_observer",
+      "code": "ZC-C-003",
+      "name": "躺平观察员",
+      "rarity": "common",
+      "rel": "collectible/common/sofa_observer.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:micro_disconnect_worker",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "micro_disconnect_worker",
+      "code": "ZC-C-004",
+      "name": "轻微掉线者",
+      "rarity": "common",
+      "rel": "collectible/common/micro_disconnect_worker.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:monday_escapee",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "monday_escapee",
+      "code": "ZC-C-005",
+      "name": "周一逃兵",
+      "rarity": "common",
+      "rel": "collectible/common/monday_escapee.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:warm_water_guard",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "warm_water_guard",
+      "code": "ZC-C-006",
+      "name": "热水守护者",
+      "rarity": "common",
+      "rel": "collectible/common/warm_water_guard.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:slow_boot_machine",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "slow_boot_machine",
+      "code": "ZC-C-007",
+      "name": "缓慢启动机",
+      "rarity": "common",
+      "rel": "collectible/common/slow_boot_machine.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:tiny_step_champion",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "tiny_step_champion",
+      "code": "ZC-C-008",
+      "name": "小步冠军",
+      "rarity": "common",
+      "rel": "collectible/common/tiny_step_champion.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:self_rescue_store",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "self_rescue_store",
+      "code": "ZC-C-009",
+      "name": "自救便利店",
+      "rarity": "common",
+      "rel": "collectible/common/self_rescue_store.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:retry_button_keeper",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "retry_button_keeper",
+      "code": "ZC-C-010",
+      "name": "重试按钮看守",
+      "rarity": "common",
+      "rel": "collectible/common/retry_button_keeper.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:calendar_slacker",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "calendar_slacker",
+      "code": "ZC-C-011",
+      "name": "日历摸鱼员",
+      "rarity": "common",
+      "rel": "collectible/common/calendar_slacker.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:unread_message_monk",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "unread_message_monk",
+      "code": "ZC-C-012",
+      "name": "未读消息修士",
+      "rarity": "common",
+      "rel": "collectible/common/unread_message_monk.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:blanket_fort_guardian",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "blanket_fort_guardian",
+      "code": "ZC-C-013",
+      "name": "被窝堡垒守卫",
+      "rarity": "common",
+      "rel": "collectible/common/blanket_fort_guardian.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:snack_budget_scholar",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "snack_budget_scholar",
+      "code": "ZC-C-014",
+      "name": "零食预算学者",
+      "rarity": "common",
+      "rel": "collectible/common/snack_budget_scholar.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:fog_window_wiper",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "fog_window_wiper",
+      "code": "ZC-C-015",
+      "name": "雾窗擦拭员",
+      "rarity": "common",
+      "rel": "collectible/common/fog_window_wiper.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:almost_ok_actor",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "almost_ok_actor",
+      "code": "ZC-C-016",
+      "name": "差不多还行演员",
+      "rarity": "common",
+      "rel": "collectible/common/almost_ok_actor.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:battery_anxiety_meter",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "battery_anxiety_meter",
+      "code": "ZC-C-017",
+      "name": "电量焦虑表",
+      "rarity": "common",
+      "rel": "collectible/common/battery_anxiety_meter.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:side_quest_picker",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "side_quest_picker",
+      "code": "ZC-C-018",
+      "name": "支线任务拾取员",
+      "rarity": "common",
+      "rel": "collectible/common/side_quest_picker.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:tiny_rain_shelter",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "tiny_rain_shelter",
+      "code": "ZC-C-019",
+      "name": "小雨避难所",
+      "rarity": "common",
+      "rel": "collectible/common/tiny_rain_shelter.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:lost_focus_fisher",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "lost_focus_fisher",
+      "code": "ZC-C-020",
+      "name": "注意力垂钓者",
+      "rarity": "common",
+      "rel": "collectible/common/lost_focus_fisher.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:browser_tab_shepherd",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "browser_tab_shepherd",
+      "code": "ZC-C-021",
+      "name": "浏览器牧羊人",
+      "rarity": "common",
+      "rel": "collectible/common/browser_tab_shepherd.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:midnight_cookie_auditor",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "midnight_cookie_auditor",
+      "code": "ZC-C-022",
+      "name": "午夜饼干审计员",
+      "rarity": "common",
+      "rel": "collectible/common/midnight_cookie_auditor.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:instant_noodle_prophet",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "instant_noodle_prophet",
+      "code": "ZC-C-023",
+      "name": "泡面预言家",
+      "rarity": "common",
+      "rel": "collectible/common/instant_noodle_prophet.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:pocket_sun_carrier",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "pocket_sun_carrier",
+      "code": "ZC-C-024",
+      "name": "口袋太阳搬运工",
+      "rarity": "common",
+      "rel": "collectible/common/pocket_sun_carrier.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:humble_loading_bar",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "humble_loading_bar",
+      "code": "ZC-C-025",
+      "name": "谦虚加载条",
+      "rarity": "common",
+      "rel": "collectible/common/humble_loading_bar.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:small_cloud_tenant",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "small_cloud_tenant",
+      "code": "ZC-C-026",
+      "name": "小云租客",
+      "rarity": "common",
+      "rel": "collectible/common/small_cloud_tenant.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:chair_rooted_guard",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "chair_rooted_guard",
+      "code": "ZC-C-027",
+      "name": "椅子生根守卫",
+      "rarity": "common",
+      "rel": "collectible/common/chair_rooted_guard.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:pending_reply_sprite",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "pending_reply_sprite",
+      "code": "ZC-C-028",
+      "name": "待回复精灵",
+      "rarity": "common",
+      "rel": "collectible/common/pending_reply_sprite.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:tiny_courage_bean",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "tiny_courage_bean",
+      "code": "ZC-C-029",
+      "name": "勇气小豆",
+      "rarity": "common",
+      "rel": "collectible/common/tiny_courage_bean.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:desktop_dust_archivist",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "desktop_dust_archivist",
+      "code": "ZC-C-030",
+      "name": "桌面灰尘档案员",
+      "rarity": "common",
+      "rel": "collectible/common/desktop_dust_archivist.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:cloud_patch_apprentice",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "cloud_patch_apprentice",
+      "code": "ZC-G-001",
+      "name": "云端修补学徒",
+      "rarity": "good",
+      "rel": "collectible/good/cloud_patch_apprentice.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:mood_buffer_agent",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "mood_buffer_agent",
+      "code": "ZC-G-002",
+      "name": "情绪缓冲员",
+      "rarity": "good",
+      "rel": "collectible/good/mood_buffer_agent.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:hope_coupon_keeper",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "hope_coupon_keeper",
+      "code": "ZC-G-003",
+      "name": "希望券保管员",
+      "rarity": "good",
+      "rel": "collectible/good/hope_coupon_keeper.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:rationality_dog_walker",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "rationality_dog_walker",
+      "code": "ZC-G-004",
+      "name": "理性遛狗人",
+      "rarity": "good",
+      "rel": "collectible/good/rationality_dog_walker.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:tiny_luck_runner",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "tiny_luck_runner",
+      "code": "ZC-G-005",
+      "name": "小好运跑腿员",
+      "rarity": "good",
+      "rel": "collectible/good/tiny_luck_runner.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:anxiety_gardener",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "anxiety_gardener",
+      "code": "ZC-G-006",
+      "name": "焦虑园丁",
+      "rarity": "good",
+      "rel": "collectible/good/anxiety_gardener.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:failure_recycler",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "failure_recycler",
+      "code": "ZC-G-007",
+      "name": "失败回收站",
+      "rarity": "good",
+      "rel": "collectible/good/failure_recycler.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:luck_taster",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "luck_taster",
+      "code": "ZC-G-008",
+      "name": "好运试吃员",
+      "rarity": "good",
+      "rel": "collectible/good/luck_taster.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:reverse_koi_assistant",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "reverse_koi_assistant",
+      "code": "ZC-G-009",
+      "name": "反向锦鲤助理",
+      "rarity": "good",
+      "rel": "collectible/good/reverse_koi_assistant.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:expectation_admin",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "expectation_admin",
+      "code": "ZC-G-010",
+      "name": "期待管理员",
+      "rarity": "good",
+      "rel": "collectible/good/expectation_admin.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:metaphysics_compliance",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "metaphysics_compliance",
+      "code": "ZC-G-011",
+      "name": "玄学合规员",
+      "rarity": "good",
+      "rel": "collectible/good/metaphysics_compliance.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:digital_scavenger",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "digital_scavenger",
+      "code": "ZC-G-012",
+      "name": "数字拾荒者",
+      "rarity": "good",
+      "rel": "collectible/good/digital_scavenger.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:little_profit_philosopher",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "little_profit_philosopher",
+      "code": "ZC-G-013",
+      "name": "小赚哲学家",
+      "rarity": "good",
+      "rel": "collectible/good/little_profit_philosopher.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:wallet_listener",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "wallet_listener",
+      "code": "ZC-G-014",
+      "name": "钱包旁听生",
+      "rarity": "good",
+      "rel": "collectible/good/wallet_listener.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:surprise_ticket_checker",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "surprise_ticket_checker",
+      "code": "ZC-G-015",
+      "name": "惊喜验票员",
+      "rarity": "good",
+      "rel": "collectible/good/surprise_ticket_checker.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:risk_kitten_keeper",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "risk_kitten_keeper",
+      "code": "ZC-G-016",
+      "name": "风险小猫看护",
+      "rarity": "good",
+      "rel": "collectible/good/risk_kitten_keeper.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:noise_reducer",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "noise_reducer",
+      "code": "ZC-G-017",
+      "name": "刺激降噪师",
+      "rarity": "good",
+      "rel": "collectible/good/noise_reducer.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:hope_night_shift",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "hope_night_shift",
+      "code": "ZC-G-018",
+      "name": "希望夜班员",
+      "rarity": "good",
+      "rel": "collectible/good/hope_night_shift.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:almost_miracle_clerk",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "almost_miracle_clerk",
+      "code": "ZC-G-019",
+      "name": "差点奇迹办事员",
+      "rarity": "good",
+      "rel": "collectible/good/almost_miracle_clerk.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:soft_deadline_negotiator",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "soft_deadline_negotiator",
+      "code": "ZC-G-020",
+      "name": "柔软截止线谈判官",
+      "rarity": "good",
+      "rel": "collectible/good/soft_deadline_negotiator.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:low_battery_saint",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "low_battery_saint",
+      "code": "ZC-R-001",
+      "name": "低电量圣徒",
+      "rarity": "rare",
+      "rel": "collectible/rare/low_battery_saint.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:cloud_patch_worker",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "cloud_patch_worker",
+      "code": "ZC-R-002",
+      "name": "云端修补匠",
+      "rarity": "rare",
+      "rel": "collectible/rare/cloud_patch_worker.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:late_but_arrived",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "late_but_arrived",
+      "code": "ZC-R-003",
+      "name": "迟到抵达员",
+      "rarity": "rare",
+      "rel": "collectible/rare/late_but_arrived.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:tiny_luck_clerk",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "tiny_luck_clerk",
+      "code": "ZC-R-004",
+      "name": "小好运办事员",
+      "rarity": "rare",
+      "rel": "collectible/rare/tiny_luck_clerk.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:mood_janitor",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "mood_janitor",
+      "code": "ZC-R-005",
+      "name": "情绪保洁员",
+      "rarity": "rare",
+      "rel": "collectible/rare/mood_janitor.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:hope_inventory_keeper",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "hope_inventory_keeper",
+      "code": "ZC-R-006",
+      "name": "希望库存员",
+      "rarity": "rare",
+      "rel": "collectible/rare/hope_inventory_keeper.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:doomed_plan_rescuer",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "doomed_plan_rescuer",
+      "code": "ZC-R-007",
+      "name": "没救计划救援员",
+      "rarity": "rare",
+      "rel": "collectible/rare/doomed_plan_rescuer.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:tiny_storm_captain",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "tiny_storm_captain",
+      "code": "ZC-R-008",
+      "name": "小风暴船长",
+      "rarity": "rare",
+      "rel": "collectible/rare/tiny_storm_captain.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:lucky_bug_keeper",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "lucky_bug_keeper",
+      "code": "ZC-R-009",
+      "name": "幸运漏洞看守",
+      "rarity": "rare",
+      "rel": "collectible/rare/lucky_bug_keeper.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:deadline_exorcist",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "deadline_exorcist",
+      "code": "ZC-R-010",
+      "name": "截止线驱魔师",
+      "rarity": "rare",
+      "rel": "collectible/rare/deadline_exorcist.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:half_awake_oracle",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "half_awake_oracle",
+      "code": "ZC-R-011",
+      "name": "半醒神谕员",
+      "rarity": "rare",
+      "rel": "collectible/rare/half_awake_oracle.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:almost_win_archivist",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "almost_win_archivist",
+      "code": "ZC-R-012",
+      "name": "差点赢档案员",
+      "rarity": "rare",
+      "rel": "collectible/rare/almost_win_archivist.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:probability_rebel",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "probability_rebel",
+      "code": "ZC-E-001",
+      "name": "概率叛逃者",
+      "rarity": "epic",
+      "rel": "collectible/epic/probability_rebel.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:mirror_lake_admin",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "mirror_lake_admin",
+      "code": "ZC-E-002",
+      "name": "镜湖管理员",
+      "rarity": "epic",
+      "rel": "collectible/epic/mirror_lake_admin.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:blue_hour_operator",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "blue_hour_operator",
+      "code": "ZC-E-003",
+      "name": "蓝时信号员",
+      "rarity": "epic",
+      "rel": "collectible/epic/blue_hour_operator.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:black_sun_intern",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "black_sun_intern",
+      "code": "ZC-E-004",
+      "name": "黑日值班生",
+      "rarity": "epic",
+      "rel": "collectible/epic/black_sun_intern.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:fate_customer_service",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "fate_customer_service",
+      "code": "ZC-E-005",
+      "name": "命运客服",
+      "rarity": "epic",
+      "rel": "collectible/epic/fate_customer_service.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:hit_rate_tamer",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "hit_rate_tamer",
+      "code": "ZC-E-006",
+      "name": "命中率驯兽师",
+      "rarity": "epic",
+      "rel": "collectible/epic/hit_rate_tamer.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:miracle_tester",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "miracle_tester",
+      "code": "ZC-E-007",
+      "name": "奇迹测试员",
+      "rarity": "epic",
+      "rel": "collectible/epic/miracle_tester.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:prize_pool_diver",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "prize_pool_diver",
+      "code": "ZC-E-008",
+      "name": "奖池潜水员",
+      "rarity": "epic",
+      "rel": "collectible/epic/prize_pool_diver.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:numbered_crown_holder",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "numbered_crown_holder",
+      "code": "ZC-L-001",
+      "name": "编号王冠持有人",
+      "rarity": "legendary",
+      "rel": "collectible/legendary/numbered_crown_holder.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:afterglow_cartographer",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "afterglow_cartographer",
+      "code": "ZC-L-002",
+      "name": "余晖制图师",
+      "rarity": "legendary",
+      "rel": "collectible/legendary/afterglow_cartographer.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:zero_hour_lighthouse_keeper",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "zero_hour_lighthouse_keeper",
+      "code": "ZC-L-003",
+      "name": "零点灯塔守灯人",
+      "rarity": "legendary",
+      "rel": "collectible/legendary/zero_hour_lighthouse_keeper.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:hidden_plot_curator",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "hidden_plot_curator",
+      "code": "ZC-L-004",
+      "name": "隐藏剧情馆长",
+      "rarity": "legendary",
+      "rel": "collectible/legendary/hidden_plot_curator.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:zero_point_pilot",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "zero_point_pilot",
+      "code": "ZC-M-001",
+      "name": "零点方舟驾驶员",
+      "rarity": "mythic",
+      "rel": "collectible/mythic/zero_point_pilot.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "collectible:terminal_hope_backup",
+      "asset_type": "collectible_card_base_no_text_meme_v3",
+      "key": "terminal_hope_backup",
+      "code": "ZC-M-002",
+      "name": "终端希望备份体",
+      "rarity": "mythic",
+      "rel": "collectible/mythic/terminal_hope_backup.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_01",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_01",
+      "pool": "free",
+      "name": "低电量小人",
+      "rarity": "common",
+      "rel": "wheel/free/common/wheel_free_01.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_02",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_02",
+      "pool": "free",
+      "name": "早起失败者",
+      "rarity": "common",
+      "rel": "wheel/free/common/wheel_free_02.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_03",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_03",
+      "pool": "free",
+      "name": "情绪保洁员",
+      "rarity": "common",
+      "rel": "wheel/free/common/wheel_free_03.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_04",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_04",
+      "pool": "free",
+      "name": "躺平观察员",
+      "rarity": "common",
+      "rel": "wheel/free/common/wheel_free_04.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_05",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_05",
+      "pool": "free",
+      "name": "轻微掉线者",
+      "rarity": "common",
+      "rel": "wheel/free/common/wheel_free_05.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_06",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_06",
+      "pool": "free",
+      "name": "周一逃兵",
+      "rarity": "common",
+      "rel": "wheel/free/common/wheel_free_06.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_07",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_07",
+      "pool": "free",
+      "name": "云端修补匠",
+      "rarity": "good",
+      "rel": "wheel/free/good/wheel_free_07.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_08",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_08",
+      "pool": "free",
+      "name": "热水守护者",
+      "rarity": "good",
+      "rel": "wheel/free/good/wheel_free_08.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_09",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_09",
+      "pool": "free",
+      "name": "缓慢启动机",
+      "rarity": "good",
+      "rel": "wheel/free/good/wheel_free_09.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_10",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_10",
+      "pool": "free",
+      "name": "小步冠军",
+      "rarity": "good",
+      "rel": "wheel/free/good/wheel_free_10.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_11",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_11",
+      "pool": "free",
+      "name": "自救便利店",
+      "rarity": "good",
+      "rel": "wheel/free/good/wheel_free_11.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_12",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_12",
+      "pool": "free",
+      "name": "反向锦鲤",
+      "rarity": "rare",
+      "rel": "wheel/free/rare/wheel_free_12.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_13",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_13",
+      "pool": "free",
+      "name": "焦虑园丁",
+      "rarity": "rare",
+      "rel": "wheel/free/rare/wheel_free_13.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_14",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_14",
+      "pool": "free",
+      "name": "好运试吃员",
+      "rarity": "rare",
+      "rel": "wheel/free/rare/wheel_free_14.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_15",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_15",
+      "pool": "free",
+      "name": "失败回收站",
+      "rarity": "rare",
+      "rel": "wheel/free/rare/wheel_free_15.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_16",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_16",
+      "pool": "free",
+      "name": "小概率乐观派",
+      "rarity": "epic",
+      "rel": "wheel/free/epic/wheel_free_16.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_17",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_17",
+      "pool": "free",
+      "name": "黑夜开灯员",
+      "rarity": "epic",
+      "rel": "wheel/free/epic/wheel_free_17.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_18",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_18",
+      "pool": "free",
+      "name": "命运客服",
+      "rarity": "epic",
+      "rel": "wheel/free/epic/wheel_free_18.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_19",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_19",
+      "pool": "free",
+      "name": "低调欧皇",
+      "rarity": "diamond",
+      "rel": "wheel/free/diamond/wheel_free_19.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_free_20",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_free_20",
+      "pool": "free",
+      "name": "命运插队员",
+      "rarity": "rainbow",
+      "rel": "wheel/free/rainbow/wheel_free_20.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_01",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_01",
+      "pool": "credit",
+      "name": "积分搬砖人",
+      "rarity": "common",
+      "rel": "wheel/credit/common/wheel_credit_01.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_02",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_02",
+      "pool": "credit",
+      "name": "余额旁听生",
+      "rarity": "common",
+      "rel": "wheel/credit/common/wheel_credit_02.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_03",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_03",
+      "pool": "credit",
+      "name": "概率实习生",
+      "rarity": "common",
+      "rel": "wheel/credit/common/wheel_credit_03.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_04",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_04",
+      "pool": "credit",
+      "name": "手气修理工",
+      "rarity": "common",
+      "rel": "wheel/credit/common/wheel_credit_04.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_05",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_05",
+      "pool": "credit",
+      "name": "小奖收纳师",
+      "rarity": "common",
+      "rel": "wheel/credit/common/wheel_credit_05.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_06",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_06",
+      "pool": "credit",
+      "name": "欧气旁观者",
+      "rarity": "common",
+      "rel": "wheel/credit/common/wheel_credit_06.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_07",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_07",
+      "pool": "credit",
+      "name": "积分炼金师",
+      "rarity": "good",
+      "rel": "wheel/credit/good/wheel_credit_07.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_08",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_08",
+      "pool": "credit",
+      "name": "前摇研究员",
+      "rarity": "good",
+      "rel": "wheel/credit/good/wheel_credit_08.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_09",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_09",
+      "pool": "credit",
+      "name": "期待管理员",
+      "rarity": "good",
+      "rel": "wheel/credit/good/wheel_credit_09.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_10",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_10",
+      "pool": "credit",
+      "name": "玄学合规员",
+      "rarity": "good",
+      "rel": "wheel/credit/good/wheel_credit_10.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_11",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_11",
+      "pool": "credit",
+      "name": "数字拾荒者",
+      "rarity": "good",
+      "rel": "wheel/credit/good/wheel_credit_11.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_12",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_12",
+      "pool": "credit",
+      "name": "概率叛逃者",
+      "rarity": "rare",
+      "rel": "wheel/credit/rare/wheel_credit_12.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_13",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_13",
+      "pool": "credit",
+      "name": "反悔锦鲤",
+      "rarity": "rare",
+      "rel": "wheel/credit/rare/wheel_credit_13.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_14",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_14",
+      "pool": "credit",
+      "name": "好运缓存员",
+      "rarity": "rare",
+      "rel": "wheel/credit/rare/wheel_credit_14.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_15",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_15",
+      "pool": "credit",
+      "name": "小赚哲学家",
+      "rarity": "rare",
+      "rel": "wheel/credit/rare/wheel_credit_15.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_16",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_16",
+      "pool": "credit",
+      "name": "冷静暴富学家",
+      "rarity": "epic",
+      "rel": "wheel/credit/epic/wheel_credit_16.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_17",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_17",
+      "pool": "credit",
+      "name": "命中率驯兽师",
+      "rarity": "epic",
+      "rel": "wheel/credit/epic/wheel_credit_17.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_18",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_18",
+      "pool": "credit",
+      "name": "奇迹测试员",
+      "rarity": "epic",
+      "rel": "wheel/credit/epic/wheel_credit_18.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_19",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_19",
+      "pool": "credit",
+      "name": "隐藏欧皇",
+      "rarity": "diamond",
+      "rel": "wheel/credit/diamond/wheel_credit_19.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_credit_20",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_credit_20",
+      "pool": "credit",
+      "name": "奖池破壁人",
+      "rarity": "rainbow",
+      "rel": "wheel/credit/rainbow/wheel_credit_20.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_01",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_01",
+      "pool": "balance",
+      "name": "余额守门员",
+      "rarity": "common",
+      "rel": "wheel/balance/common/wheel_balance_01.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_02",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_02",
+      "pool": "balance",
+      "name": "现金流学徒",
+      "rarity": "common",
+      "rel": "wheel/balance/common/wheel_balance_02.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_03",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_03",
+      "pool": "balance",
+      "name": "钱包观察员",
+      "rarity": "common",
+      "rel": "wheel/balance/common/wheel_balance_03.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_04",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_04",
+      "pool": "balance",
+      "name": "风险小猫",
+      "rarity": "common",
+      "rel": "wheel/balance/common/wheel_balance_04.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_05",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_05",
+      "pool": "balance",
+      "name": "开奖围观者",
+      "rarity": "common",
+      "rel": "wheel/balance/common/wheel_balance_05.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_06",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_06",
+      "pool": "balance",
+      "name": "理性放风人",
+      "rarity": "common",
+      "rel": "wheel/balance/common/wheel_balance_06.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_07",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_07",
+      "pool": "balance",
+      "name": "现金流诗人",
+      "rarity": "good",
+      "rel": "wheel/balance/good/wheel_balance_07.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_08",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_08",
+      "pool": "balance",
+      "name": "惊喜验票员",
+      "rarity": "good",
+      "rel": "wheel/balance/good/wheel_balance_08.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_09",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_09",
+      "pool": "balance",
+      "name": "好运保安",
+      "rarity": "good",
+      "rel": "wheel/balance/good/wheel_balance_09.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_10",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_10",
+      "pool": "balance",
+      "name": "余额园丁",
+      "rarity": "good",
+      "rel": "wheel/balance/good/wheel_balance_10.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_11",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_11",
+      "pool": "balance",
+      "name": "刺激降噪师",
+      "rarity": "good",
+      "rel": "wheel/balance/good/wheel_balance_11.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_12",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_12",
+      "pool": "balance",
+      "name": "大奖池观察员",
+      "rarity": "rare",
+      "rel": "wheel/balance/rare/wheel_balance_12.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_13",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_13",
+      "pool": "balance",
+      "name": "回本幻想家",
+      "rarity": "rare",
+      "rel": "wheel/balance/rare/wheel_balance_13.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_14",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_14",
+      "pool": "balance",
+      "name": "小赚逃逸者",
+      "rarity": "rare",
+      "rel": "wheel/balance/rare/wheel_balance_14.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_15",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_15",
+      "pool": "balance",
+      "name": "紧张收藏家",
+      "rarity": "rare",
+      "rel": "wheel/balance/rare/wheel_balance_15.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_16",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_16",
+      "pool": "balance",
+      "name": "奖池潜水员",
+      "rarity": "epic",
+      "rel": "wheel/balance/epic/wheel_balance_16.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_17",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_17",
+      "pool": "balance",
+      "name": "命运出纳员",
+      "rarity": "epic",
+      "rel": "wheel/balance/epic/wheel_balance_17.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_18",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_18",
+      "pool": "balance",
+      "name": "高光借阅员",
+      "rarity": "epic",
+      "rel": "wheel/balance/epic/wheel_balance_18.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_19",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_19",
+      "pool": "balance",
+      "name": "闪卡预备役",
+      "rarity": "diamond",
+      "rel": "wheel/balance/diamond/wheel_balance_19.png",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "asset_id": "wheel:wheel_balance_20",
+      "asset_type": "wheel_blessing_no_collectible_no_text_meme_v3",
+      "key": "wheel_balance_20",
+      "pool": "balance",
+      "name": "彩虹账本持有人",
+      "rarity": "rainbow",
+      "rel": "wheel/balance/rainbow/wheel_balance_20.png",
+      "size": [
+        1024,
+        1536
+      ]
+    }
+  ],
+  "excluded": []
+}

@@ -1,0 +1,27 @@
+[Unit]
+Description=BizDecipher Harness execution adapter
+After=network.target bizdecipher-test.service
+
+[Service]
+Type=simple
+User=bizdecipher-harness
+Group=bizdecipher-harness
+WorkingDirectory=/data/bizdecipher/src/candidate/services/harness-runner
+Environment=PATH=/usr/local/node/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HOME=/data/bizdecipher/src/candidate/services/harness-runner/.runtime
+Environment=PORT=18082
+Environment=BIZ_APP_URL=http://127.0.0.1:18081
+ExecStart=/usr/local/node/bin/node src/server.mjs
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/data/bizdecipher/src/candidate/services/harness-runner/.runtime
+UMask=0077
+MemoryMax=1536M
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target

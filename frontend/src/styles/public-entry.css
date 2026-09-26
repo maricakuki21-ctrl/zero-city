@@ -1,0 +1,31 @@
+.bd-public-surface {
+  --public-canvas: #fff;
+  --public-field: #f5f6f8;
+  --public-text: #202428;
+  --public-muted: #606a75;
+  --public-line: #dee3e8;
+  --public-action: #087f70;
+  --public-action-hover: #076858;
+  --public-danger: #b42318;
+  --public-radius: 6px;
+  background: var(--public-canvas);
+  color: var(--public-text);
+  color-scheme: light;
+  font: 14px/1.65 Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+.bd-public-surface *, .bd-public-surface *::before, .bd-public-surface *::after { box-sizing: border-box; letter-spacing: 0; }
+.bd-public-surface :is(h1,h2,h3,p) { margin: 0; }
+.bd-public-surface :is(button,input) { font: inherit; }
+.bd-public-surface a { text-decoration: none; }
+.bd-public-surface :is(button,a,input):focus-visible { outline: 2px solid var(--public-action); outline-offset: 4px; }
+.public-action {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 42px; padding: 9px 18px; border: 1px solid transparent;
+  border-radius: var(--public-radius); background: var(--public-action); color: #fff;
+  font-weight: 500; font-size: 13px; cursor: pointer;
+}
+.public-action:hover { background: var(--public-action-hover); }
+.public-action--secondary { border-color: var(--public-line); background: var(--public-canvas); color: var(--public-text); }
+.public-action--secondary:hover { background: var(--public-field); }
+.public-text-link { display: inline-flex; align-items: center; gap: 8px; color: var(--public-text); font-size: 13px; }
+.public-text-link:hover { color: var(--public-action); }

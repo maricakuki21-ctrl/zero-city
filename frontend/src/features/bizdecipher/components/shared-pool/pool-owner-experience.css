@@ -1,0 +1,74 @@
+.bd-app-shell[data-visual-domain] .owner-experience {
+  max-width: 1120px; width: 100%; gap: 24px; color: var(--bd-text-primary);
+}
+.bd-app-shell[data-visual-domain] .owner-experience .asow-header { align-items: center; margin: 0; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-header-actions { gap: 8px; flex-wrap: wrap; }
+.bd-app-shell[data-visual-domain] .owner-experience :is(.asow-btn,.aopd-btn) {
+  box-shadow: none; border: 1px solid var(--bd-ui-line); border-radius: 6px;
+  background: var(--bd-surface); color: var(--bd-text-primary); font-size: 13px;
+  font-weight: 500; min-height: 36px; gap: 8px;
+}
+.bd-app-shell[data-visual-domain] .owner-experience :is(.asow-btn-primary,.aopd-btn-primary) {
+  background: var(--bd-accent-teal); color: #fff; border-color: transparent;
+}
+.bd-app-shell[data-visual-domain] .owner-experience :is(.asow-btn-danger,.aopd-btn-danger) { color: var(--bd-status-danger); }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-overview { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 0; margin: 0; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-overview>article {
+  padding: 12px 24px; border: 0; border-left: 1px solid var(--bd-ui-line);
+  border-radius: 0; background: transparent; box-shadow: none;
+}
+.bd-app-shell[data-visual-domain] .owner-experience .asow-overview>article:first-child { padding-left: 0; border-left: 0; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-overview b { color: var(--bd-text-primary); font-size: 24px; font-weight: 600; }
+.owner-view-tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--bd-ui-line); }
+.owner-view-tabs button { display: flex; align-items: center; gap: 8px; padding: 12px 0; border-bottom: 2px solid transparent; font-size: 14px; color: var(--bd-text-secondary); }
+.owner-view-tabs button.active { border-color: var(--bd-accent-teal); color: var(--bd-accent-teal); }
+.bd-app-shell[data-visual-domain] .owner-experience :is(.asow-create-panel,.aopd-native-onboarding) { padding: 0 0 24px; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.owner-create-layout { display: grid; grid-template-columns: minmax(0,1fr) 300px; align-items: start; gap: 48px; }
+.owner-preview-label { color: var(--bd-text-secondary); font-size: 12px; margin-bottom: 12px; }
+.bd-app-shell[data-visual-domain] .owner-experience .owner-create-layout .asow-form-grid { grid-template-columns: 1fr; }
+.bd-app-shell[data-visual-domain] .owner-experience :is(.asow-input,.aopd-input,.aopd-textarea) { border: 1px solid var(--bd-ui-line); border-radius: 6px; box-shadow: none; background: var(--bd-surface); min-height: 40px; font-size: 14px; font-weight: 400; color: var(--bd-text-primary); }
+.bd-app-shell[data-visual-domain] .owner-experience .owner-description { height: auto; min-height: 100px; padding: 12px; resize: vertical; }
+.owner-form-note { color: var(--bd-text-secondary); font-size: 12px; margin-top: 12px; line-height: 1.6; }
+.owner-advanced { font-size: 12px; color: var(--bd-text-secondary); }
+.owner-advanced summary { cursor: pointer; min-height: 36px; display: list-item; padding: 10px 0; }
+.owner-advanced>button,.owner-advanced>div { margin: 12px 0; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-form-actions { justify-content: flex-end; margin-top: 20px; }
+.owner-list-toolbar { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+.owner-list-toolbar label { display: flex; align-items: center; gap: 10px; flex: 1; border: 1px solid var(--bd-ui-line); border-radius: 6px; padding: 0 12px; background: var(--bd-surface); color: var(--bd-text-secondary); }
+.owner-list-toolbar input { width: 100%; min-width: 0; height: 40px; background: transparent; color: var(--bd-text-primary); outline: none; font-size: 14px; }
+.owner-list-toolbar select { height: 40px; padding: 0 12px; border: 1px solid var(--bd-ui-line); border-radius: 6px; background: var(--bd-surface); color: var(--bd-text-primary); font-size: 13px; }
+.bd-app-shell[data-visual-domain] .owner-experience .owner-icon-button { width: 36px; padding: 0; justify-content: center; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-empty { display: flex; align-items: center; flex-direction: column; gap: 12px; padding: 36px 16px; background: transparent; border: 0; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-empty img { object-fit: contain; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card { padding: 20px; box-shadow: none; border: 1px solid var(--bd-ui-line); border-radius: 8px; background: var(--bd-surface); overflow: visible; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card-overlay { display: none; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card-skin { width: 100px; height: 100px; right: 0; left: auto; opacity: .15; border-radius: 8px; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card-body { display: grid; grid-template-columns: minmax(0,1fr) minmax(230px,1fr); gap: 16px 28px; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card-actions { grid-column: 1/-1; gap: 10px; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-pool-next-step { grid-column: 1/-1; padding: 0; border-radius: 0; background: transparent; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-mini-stat { border: 0; box-shadow: none; border-radius: 0; background: transparent; padding: 0; }
+.owner-more { position: relative; }
+.owner-more summary { list-style: none; cursor: pointer; width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--bd-ui-line); border-radius: 6px; }
+.owner-more summary::-webkit-details-marker { display: none; }
+.owner-more-actions { display: flex; flex-direction: column; gap: 6px; position: absolute; z-index: 20; left: 0; top: 42px; min-width: 180px; padding: 8px; border: 1px solid var(--bd-ui-line); border-radius: 6px; background: var(--bd-surface); box-shadow: 0 8px 24px rgb(0 0 0 / .08); }
+.bd-app-shell[data-visual-domain] .owner-experience .asow-skin-panel { grid-column: 1/-1; border-top: 1px solid var(--bd-ui-line); padding: 16px 0 0; border-radius: 0; box-shadow: none; background: transparent; }
+.bd-app-shell[data-visual-domain] .owner-experience .aopd-form-card { padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; margin-top: 20px; }
+.bd-app-shell[data-visual-domain] .owner-experience .aopd-section-head h2 { font-size: 18px; font-weight: 600; }
+.bd-app-shell[data-visual-domain] .owner-experience .aopd-header { margin-bottom: 24px; min-height: 0; }
+.bd-app-shell[data-visual-domain] .owner-experience .aopd-header-overlay { display: none; }
+.bd-app-shell[data-visual-domain] .owner-experience .aopd-header::before,.bd-app-shell[data-visual-domain] .owner-experience .aopd-header::after { display: none; }
+.bd-app-shell[data-visual-domain] .owner-experience .aopd-title { font-size: 24px; line-height: 1.4; font-weight: 600; overflow-wrap: anywhere; }
+.owner-experience :is(button,summary,input,select,textarea):focus-visible { outline: 2px solid var(--bd-accent-teal); outline-offset: 2px; }
+@media(max-width:767px) {
+  .owner-create-layout { grid-template-columns: minmax(0,1fr); gap: 24px; }
+  .owner-create-layout>aside { width: min(100%,360px); }
+  .bd-app-shell[data-visual-domain] .owner-experience .asow-overview { grid-template-columns: repeat(2,minmax(0,1fr)); row-gap: 12px; }
+  .bd-app-shell[data-visual-domain] .owner-experience .asow-overview>article { padding: 8px 12px; }
+  .bd-app-shell[data-visual-domain] .owner-experience .asow-overview>article:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card-body { grid-template-columns: minmax(0,1fr); }
+  .bd-app-shell[data-visual-domain] .owner-experience .asow-header { align-items: stretch; }
+  .bd-app-shell[data-visual-domain] .owner-experience .asow-header-actions { gap: 6px; }
+  .bd-app-shell[data-visual-domain] .owner-experience .asow-pool-card { padding: 16px; }
+  .owner-list-toolbar { gap: 8px; }.owner-list-toolbar select { width: 106px; padding: 0 6px; }
+}

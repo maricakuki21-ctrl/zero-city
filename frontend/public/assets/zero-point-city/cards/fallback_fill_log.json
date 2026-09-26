@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-06-28T12:58:11",
+  "fallbacks": [
+    {
+      "target": "collectible/good/digital_scavenger.png",
+      "fallback_source": "collectible/good/noise_reducer.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    },
+    {
+      "target": "collectible/epic/miracle_tester.png",
+      "fallback_source": "collectible/epic/hit_rate_tamer.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    },
+    {
+      "target": "collectible/legendary/numbered_crown_holder.png",
+      "fallback_source": "collectible/legendary/zero_hour_lighthouse_keeper.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    },
+    {
+      "target": "collectible/legendary/hidden_plot_curator.png",
+      "fallback_source": "collectible/legendary/afterglow_cartographer.png",
+      "method": "temporary copied fallback, already 1024x1536, no stretch"
+    }
+  ]
+}

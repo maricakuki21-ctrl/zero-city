@@ -1,0 +1,56 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { flushPromises, mount } from '@vue/test-utils'
+import MarketplaceDisputesPanel from './MarketplaceDisputesPanel.vue'
+
+const api = vi.hoisted(() => ({ listDisputes: vi.fn(), getDispute: vi.fn(), resolveDispute: vi.fn() }))
+vi.mock('@/features/bizdecipher/api/marketplace', () => ({ marketplaceAPI: api }))
+vi.mock('./MarketplaceFundsPolicy.vue', () => ({ default: { template: '<div />' } }))
+vi.mock('./MarketplaceOrderFunds.vue', () => ({ default: { template: '<div />' } }))
+const order = { id: 8, status: 'disputed', listing_title: 'Automation', buyer_display_name: 'Buyer', seller_display_name: 'Seller', dispute_note: 'Missing delivery', scope_text: 'Script', amount_text: '100 agreed', events: [] }
+describe('MarketplaceDisputesPanel', () => {
+  beforeEach(() => {
+    vi.resetAllMocks()
+    api.listDisputes.mockResolvedValue({ items: [order], next_cursor: 5 })
+    api.getDispute.mockResolvedValue(order)
+    api.resolveDispute.mockResolvedValue({ ...order, status: 'confirmed' })
+  })
+  it('requires a reason and removes a resolved dispute from the pending list', async () => {
+    const wrapper = mount(MarketplaceDisputesPanel)
+    await flushPromises()
+    await wrapper.get('aside button').trigger('click')
+    await flushPromises()
+    expect(wrapper.get('button[type=submit]').attributes('disabled')).toBeDefined()
+    await wrapper.get('textarea').setValue(' Agreed new delivery ')
+    await wrapper.get('form').trigger('submit')
+    await flushPromises()
+    expect(api.resolveDispute).toHaveBeenCalledWith(8, { outcome: 'confirmed', reason: 'Agreed new delivery' })
+    expect(wrapper.find('form').exists()).toBe(false)
+    expect(wrapper.text()).toContain('处理结果和资金状态')
+  })
+  it('allows cancellation and retains the detail when resolution fails', async () => {
+    api.resolveDispute.mockRejectedValue(new Error('Conflict'))
+    const wrapper = mount(MarketplaceDisputesPanel)
+    await flushPromises()
+    await wrapper.get('aside button').trigger('click')
+    await flushPromises()
+    await wrapper.get('select').setValue('canceled')
+    await wrapper.get('textarea').setValue('Cannot deliver')
+    await wrapper.get('form').trigger('submit')
+    await flushPromises()
+    expect(api.resolveDispute).toHaveBeenCalledWith(8, { outcome: 'canceled', reason: 'Cannot deliver' })
+    expect(wrapper.find('[role=alert]').exists()).toBe(true)
+    expect(wrapper.find('form').exists()).toBe(true)
+  })
+  it('loads another cursor page and handles empty/error states', async () => {
+    const wrapper = mount(MarketplaceDisputesPanel)
+    await flushPromises()
+    api.listDisputes.mockResolvedValueOnce({ items: [], next_cursor: null })
+    await wrapper.findAll('aside button')[1].trigger('click')
+    await flushPromises()
+    expect(api.listDisputes).toHaveBeenLastCalledWith(5)
+    api.listDisputes.mockRejectedValueOnce(new Error('offline'))
+    await wrapper.get('[aria-label="刷新争议"]').trigger('click')
+    await flushPromises()
+    expect(wrapper.find('[role=alert]').exists()).toBe(true)
+  })
+})

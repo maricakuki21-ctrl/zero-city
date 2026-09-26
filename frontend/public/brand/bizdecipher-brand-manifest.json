@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "source": {
+    "path": "/brand/source/bizdecipher-reference.png",
+    "dimensions": {
+      "width": 655,
+      "height": 567
+    },
+    "sha256": "0ac2b9de356bb301bfe94975422a2cfff5d990ae82e7a68cecc862592c51a7b3"
+  },
+  "transformation": {
+    "allowed": [
+      "crop",
+      "scale",
+      "opaque_white_background"
+    ],
+    "resampling": "Pillow.LANCZOS",
+    "pillow_version": "12.3.0",
+    "background": "#ffffff",
+    "source_write_forbidden": true
+  },
+  "assets": [
+    {
+      "path": "/brand/bizdecipher-lockup.png",
+      "filename": "bizdecipher-lockup.png",
+      "crop": {
+        "x0": 0,
+        "y0": 0,
+        "x1": 655,
+        "y1": 567
+      },
+      "output_size": {
+        "width": 655,
+        "height": 567
+      },
+      "sha256": "3e5ce4c2bb70f433168586e818dd7edab25a1acdb4c7ccff2695863145195b30"
+    },
+    {
+      "path": "/brand/bizdecipher-mark.png",
+      "filename": "bizdecipher-mark.png",
+      "crop": {
+        "x0": 232,
+        "y0": 89,
+        "x1": 439,
+        "y1": 350
+      },
+      "output_size": {
+        "width": 207,
+        "height": 261
+      },
+      "sha256": "7d6f58d653971fb019f3d0de5272422504300e6cabf98eb49a56999e123d6753"
+    },
+    {
+      "path": "/brand/bizdecipher-wordmark.png",
+      "filename": "bizdecipher-wordmark.png",
+      "crop": {
+        "x0": 73,
+        "y0": 390,
+        "x1": 591,
+        "y1": 472
+      },
+      "output_size": {
+        "width": 518,
+        "height": 82
+      },
+      "sha256": "c3ab0c1ca5e945c8df7511014198e4826e5d000070205f17f66b4966493c6be6"
+    },
+    {
+      "path": "/brand/bizdecipher-tagline.png",
+      "filename": "bizdecipher-tagline.png",
+      "crop": {
+        "x0": 76,
+        "y0": 473,
+        "x1": 590,
+        "y1": 505
+      },
+      "output_size": {
+        "width": 514,
+        "height": 32
+      },
+      "sha256": "823e14ea9582d7ebc43ca71c73d23bb26792e98ad5480325f06ac57039eacbf6"
+    },
+    {
+      "path": "/brand/bizdecipher-favicon.png",
+      "filename": "bizdecipher-favicon.png",
+      "crop": {
+        "x0": 232,
+        "y0": 89,
+        "x1": 439,
+        "y1": 350
+      },
+      "output_size": {
+        "width": 64,
+        "height": 64
+      },
+      "sha256": "e9f0db41114dcfaec4f2248c39c236a966869b9043d3279fc8a834d10445a605"
+    }
+  ]
+}

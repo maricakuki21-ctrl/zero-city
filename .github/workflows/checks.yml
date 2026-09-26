@@ -1,0 +1,63 @@
+name: Contribution checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: frontend
+      - run: pnpm typecheck
+        working-directory: frontend
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+      - run: pnpm exec vitest run src/components/layout/__tests__/AppSidebar.spec.ts src/components/layout/__tests__/sidebarNavigation.spec.ts src/features/bizdecipher/components/shared-pool/officialObservation.spec.ts --maxWorkers=1 --minWorkers=1
+        working-directory: frontend
+      - run: pnpm exec vite build --config vite.config.ts
+        working-directory: frontend
+        env:
+          DISABLE_VUE_TSC: '1'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-${{ github.sha }}
+          path: backend/internal/web/dist/
+          retention-days: 3
+          if-no-files-found: error
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+      - run: go test -p 2 ./internal/repository ./internal/service ./internal/handler/admin -run 'TestAdminGroupSource|TestGroupHandler' -count=1
+        working-directory: backend
+      - run: go test -tags unit -p 2 ./internal/repository -run TestDeleteSharedPoolTx -count=1
+        working-directory: backend
+      - run: go build -buildvcs=false -p 2 -tags embed -o /tmp/zero-city ./cmd/server
+        working-directory: backend
